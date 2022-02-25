@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+apply from: 'tinker.gradle'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.baidu.duer.chinatalk_refactor"
+        minSdkVersion 29
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+
+        multiDexEnabled true
+        buildConfigField "String", "MESSAGE", "\"I am the base apk\""
+        buildConfigField "String", "TINKER_ID", "\"${TINKER_ID}\""
+        buildConfigField "String", "PLATFORM", "\"all\""
+    }
+
+    // 自定义打包名称
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "ChinaTalk_v${versionName}.apk"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    // 指定libs文件夹位置
+    sourceSets {
+        main{
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    dexOptions {
+        jumboMode = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    // 2022年了,引入AndroidX吧,替换掉support包
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.navigation:navigation-fragment:2.1.0'
+    implementation 'androidx.navigation:navigation-ui:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation files('libs\\Msc.jar')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //可选，如果不用tinker注解构建application可不用
+    annotationProcessor("com.tencent.tinker:tinker-android-anno:1.9.14.5") { changing = true }
+    compileOnly("com.tencent.tinker:tinker-android-anno:1.9.14.5") { changing = true }
+
+    //tinker's main Android lib
+    implementation('com.tencent.tinker:tinker-android-lib:1.9.14.5')
+    //dex分包
+    implementation "androidx.multidex:multidex:2.0.1"
+
+    // RxPermissions---动态权限申请
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
+    // 腾讯QMUI组件
+    implementation 'com.qmuiteam:qmui:2.0.0-alpha10'
+    // butterknife注入
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    // retrofit网络请求库---本质是对okhttp的封装
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    // retrofit的json解析器---使用Gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    // 开源androidUI组件库之----加载动画
+    compile 'com.wang.avi:library:2.1.3'
+    // 开源androidUI组件库之----dialog组件
+    compile 'com.yarolegovich:lovely-dialog:1.1.1'
+
+}
