@@ -15,6 +15,9 @@ import com.iflytek.cloud.SpeechEvaluator;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * 语音评测
+ */
 public class EvaluateSpeechManager implements EvaluatorListener {
 
     private static final String TAG = "EvaluatSpeechManager";
@@ -111,9 +114,9 @@ public class EvaluateSpeechManager implements EvaluatorListener {
     public void release() {
         ise.cancel();
         ise.destroy();
-//        ise = null;
+        // ise = null;
         bindContext.clear();
-        bindContext = null;
+        // bindContext = null;
     }
 
     @Override

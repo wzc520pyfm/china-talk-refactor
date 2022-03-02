@@ -106,9 +106,9 @@ public class RecognizeSpeechManager implements RecognizerListener, InitListener 
     public void release() {
         iat.cancel();
         iat.destroy();
-//        iat = null;
+        // iat = null;
         bindContext.clear();
-        bindContext = null;
+        // bindContext = null;
         charBufffer.delete(0, charBufffer.length());
     }
 

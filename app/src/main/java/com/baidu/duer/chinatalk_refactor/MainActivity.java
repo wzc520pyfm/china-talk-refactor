@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chenenyu.router.annotation.Route;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tencent.tinker.lib.tinker.Tinker;
@@ -21,7 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-
+@Route("home")
 public class MainActivity extends AppCompatActivity {
 
     private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk";

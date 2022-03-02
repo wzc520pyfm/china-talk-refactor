@@ -85,7 +85,9 @@ public class NotificationsFragment extends Fragment implements EvaluateListener 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();//视图销毁时必须解绑
+        if(unbinder != null) {
+            unbinder.unbind();//视图销毁时必须解绑
+        }
         EvaluateSpeechManager.instance().release();
     }
 

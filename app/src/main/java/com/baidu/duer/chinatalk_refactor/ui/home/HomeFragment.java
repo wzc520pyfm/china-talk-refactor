@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment implements RecognizeListener {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         // fragment绑定butterKnife
         unbinder = ButterKnife.bind(this,root);
-        //让TextView观察ViewModel中数据的变化,并实时展示
+        // 让UI观察ViewModel中数据的变化,并实时更新UI
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -86,7 +86,9 @@ public class HomeFragment extends Fragment implements RecognizeListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();//视图销毁时必须解绑
+        if(unbinder != null) {
+            unbinder.unbind();//视图销毁时必须解绑
+        }
         RecognizeSpeechManager.instance().release();
     }
 

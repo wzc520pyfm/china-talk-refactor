@@ -17,6 +17,9 @@ import com.iflytek.cloud.SynthesizerListener;
 import java.lang.ref.WeakReference;
 import java.util.Objects;
 
+/**
+ * 语音合成
+ */
 public class SynthesizeSpeechManager implements SynthesizerListener, InitListener {
 
     private static final String TAG = "SynthesizeSpeechManager";
@@ -112,9 +115,9 @@ public class SynthesizeSpeechManager implements SynthesizerListener, InitListene
     public void release() {
         tts.stopSpeaking();
         tts.destroy();
-//        tts = null;
+        // tts = null;
         bindContext.clear();
-        bindContext = null;
+        // bindContext = null;
     }
 
     @Override
