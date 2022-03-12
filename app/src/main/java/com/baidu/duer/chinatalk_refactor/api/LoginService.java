@@ -6,7 +6,7 @@ import com.baidu.duer.chinatalk_refactor.bean.user.LoggedInUser;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -15,5 +15,5 @@ import retrofit2.http.POST;
  */
 public interface LoginService {
     @POST("user/login")
-    Call<ServiceResponse<ArrayList<LoggedInUser>>> login(@Body LoginData loginData);
+    Observable<ServiceResponse<ArrayList<LoggedInUser>>> login(@Body LoginData loginData);
 }

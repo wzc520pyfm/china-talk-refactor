@@ -29,4 +29,12 @@ class LoginResult {
     Integer getError() {
         return error;
     }
+
+    @Override
+    public String toString() {
+        return "LoginResult{" +
+                "success=" + success +
+                ", error=" + error +
+                '}';
+    }
 }

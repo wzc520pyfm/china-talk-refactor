@@ -86,13 +86,19 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
     // 腾讯QMUI组件
     implementation 'com.qmuiteam:qmui:2.0.0-alpha10'
+    // 腾讯arch库
+    implementation "com.qmuiteam:arch:2.0.0-alpha10"
     // butterknife注入
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     // retrofit网络请求库---本质是对okhttp的封装
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    // retrofit对rxjava的支持
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     // retrofit的json解析器---使用Gson
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    // okhttp日志
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     // Aria文件下载框架
     implementation 'me.laoyuyu.aria:core:3.8.16'
     annotationProcessor 'me.laoyuyu.aria:compiler:3.8.16'

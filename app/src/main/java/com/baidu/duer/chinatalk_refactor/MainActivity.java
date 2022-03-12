@@ -22,6 +22,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+/**
+ * 不要在主线程中访问网络
+ */
 @Route("home")
 public class MainActivity extends AppCompatActivity {
 

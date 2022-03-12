@@ -22,6 +22,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.baidu.duer.chinatalk_refactor.R;
 import com.chenenyu.router.Router;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
@@ -30,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         // 使用viewModel工厂
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
@@ -135,5 +139,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed(@StringRes Integer errorString) { // 显示登录失败提示
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 跳转到测试页
+     */
+    @OnClick(R.id.test)
+    public void onClick() {
+        Router.build("game").go(this);
     }
 }

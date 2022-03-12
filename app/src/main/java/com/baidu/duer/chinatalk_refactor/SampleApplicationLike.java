@@ -12,6 +12,7 @@ import androidx.multidex.MultiDex;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
 import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.entry.DefaultApplicationLike;
 import com.tencent.tinker.lib.tinker.Tinker;
@@ -33,11 +34,13 @@ public class SampleApplicationLike extends DefaultApplicationLike {
     public void onCreate() {
         super.onCreate();
         mContext = new WeakReference<Context>(this.getApplication());
-        // 这里实现SDK初始化，
-        // 将“12345678”替换成您申请的APPID，申请地址：http://www.xfyun.cn
+        // 这里实现SDK初始化
+
+        // 初始化讯飞SDK: 将“12345678”替换成您申请的APPID，申请地址：http://www.xfyun.cn
         // 请勿在“=”与appid之间添加任何空字符或者转义符
         SpeechUtility.createUtility(mContext.get(), SpeechConstant.APPID + "=" + mContext.get().getString(R.string.APPID));
-
+        // 初始化arch
+        QMUISwipeBackActivityManager.init(this.getApplication());
     }
 
     /**

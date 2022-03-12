@@ -3,7 +3,7 @@ package com.baidu.duer.chinatalk_refactor.bean.user;
 import androidx.annotation.NonNull;
 
 /**
- * 登录信息
+ * 登录表单信息
  */
 public class LoginData {
     @NonNull

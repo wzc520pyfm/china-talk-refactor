@@ -6,6 +6,7 @@ import com.baidu.duer.chinatalk_refactor.http.TokenInterceptor;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 public class OkHttpUtil {
     public static OkHttpClient getOkHttpClient() {
@@ -16,6 +17,10 @@ public class OkHttpUtil {
         httpClientBuilder.connectTimeout(3000, TimeUnit.SECONDS);
         httpClientBuilder.writeTimeout(3000, TimeUnit.SECONDS);
         httpClientBuilder.readTimeout(3000, TimeUnit.SECONDS);
+        //启用Log日志
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        httpClientBuilder.addInterceptor(loggingInterceptor);
         //使用拦截器
         httpClientBuilder
 //                .authenticator(new TokenAuthenticator()) // token自动刷新

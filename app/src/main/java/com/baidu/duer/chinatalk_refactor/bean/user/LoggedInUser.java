@@ -2,7 +2,7 @@ package com.baidu.duer.chinatalk_refactor.bean.user;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
- * 数据类,用于捕获从LoginRepository检索的已登录用户的用户信息
+ * 数据类,用于捕获已登录用户的用户信息
  */
 public class LoggedInUser {
 

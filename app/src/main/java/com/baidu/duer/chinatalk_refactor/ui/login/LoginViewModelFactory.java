@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.baidu.duer.chinatalk_refactor.data.login.LoginRepository;
-
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.ViewModel提供程序工厂实例化LoginViewModel.
