@@ -49,4 +49,23 @@
         app:layout_constraintStart_toStartOf="@+id/signOut"
         app:layout_constraintTop_toBottomOf="@+id/signOut" />
 
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/tips"
+        style="@style/QDRoundButtonStyle"
+        android:layout_marginEnd="16dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/gameTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gameTitle"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.qmuiteam.qmui.widget.QMUIViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="88dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

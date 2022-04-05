@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView2
+        android:id="@+id/radiusImageView"
+        android:layout_width="342dp"
+        android:layout_height="227dp"
+        android:layout_marginTop="112dp"
+        android:clickable="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/example"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:qmui_border_color="?attr/qmui_config_color_gray_6"
+        app:qmui_border_width="1px"
+        app:qmui_corner_radius="15dp"
+        app:qmui_selected_border_color="?attr/qmui_config_color_gray_4"
+        app:qmui_selected_border_width="1px"
+        app:qmui_selected_mask_color="?attr/qmui_config_color_gray_8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

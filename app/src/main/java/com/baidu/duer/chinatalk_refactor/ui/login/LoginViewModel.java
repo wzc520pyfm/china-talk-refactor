@@ -26,19 +26,11 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LoginViewModel extends ViewModel {
 
-    private static volatile LoginViewModel instance;
-
     private SharedUtil sharedUtil = SharedUtil.getInstance();
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
 
-    public static LoginViewModel getInstance() {
-        if (instance == null) {
-            instance = new LoginViewModel();
-        }
-        return instance;
-    }
 
     LiveData<LoginFormState> getLoginFormState() { // 表单验证状态数据
         return loginFormState;
