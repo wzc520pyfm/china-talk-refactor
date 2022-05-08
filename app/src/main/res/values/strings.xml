@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">chinatalk</string>
     <string name="APPID">d213d266</string>
-    <string name="baseUrl">https://wzctest.wzc520pyf.cn/chinaTalk/api/v1/</string>
+    <string name="baseUrl">https://wzctest.wzc520pyf.cn/chinaTalkNest/api/v1/</string>
     <string name="fapp">chinaTalkAndroid</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">HOME</string>
+    <string name="title_exam">EXAM</string>
+    <string name="title_my">MY</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -17,5 +17,45 @@
     <string name="login_failed">"Login failed"</string>
     <string name="sign_out">Sign out</string>
     <string name="skip">Skip</string>
-    <string name="game">Game</string>
+    <string name="game">Gout spoken</string>
+    <string name="determine">determine</string>
+    <string name="voice_input">语音输入</string>
+    <string name="speak_start_tip">长按说话</string>
+    <string name="gameTitle">看图识物</string>
+    <string name="editTip">请输入你的答案</string>
+    <string name="game_warm_tip">温馨提示：您可点击右侧语音输入，录入的语音将实时转成文字，可选择删除或重录</string>
+    <string name="answer_true">回答正确！</string>
+    <string name="answer_tip">提示：</string>
+    <string name="explain">释义：</string>
+    <string name="go_next">即将进入下一关！！！</string>
+    <string name="answer_false">回答错误，请重新做答！</string>
+    <string name="search_query">Semantic query</string>
+    <string name="learning_record">Learning record</string>
+    <string name="taste_test">Taste Test</string>
+    <string name="my_wrong_topic">My wrong topic</string>
+    <string name="learning_time_today">Learning Time Today</string>
+    <string name="min">min</string>
+    <string name="learning_days">Learning Days</string>
+    <string name="day">day</string>
+    <string name="voice_helper_tips">Click me to enter the voice assistant</string>
+    <string name="total_questions">总题数：</string>
+    <string name="highest_score">最高分：</string>
+    <string name="exam_time">测试时长：</string>
+    <string name="start_test">Start Testing</string>
+    <string name="nest_question">nest question</string>
+    <string name="on_topic">on a topic</string>
+    <string name="notice">#NOTICE#</string>
+    <string name="modify">Modify</string>
+    <string name="school">学校：</string>
+    <string name="birthday">生日：</string>
+    <string name="profession">专业：</string>
+    <string name="my_collection">My collection</string>
+    <string name="set_up">Set up</string>
+
+    <string-array name="languages">
+        <item>英文</item>
+        <item>中文</item>
+        <item>塞尔维亚文</item>
+        <item>罗马尼亚文</item>
+    </string-array>
 </resources>

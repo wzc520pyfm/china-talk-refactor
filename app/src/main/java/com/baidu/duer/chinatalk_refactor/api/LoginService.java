@@ -14,6 +14,6 @@ import retrofit2.http.POST;
  * 登录接口
  */
 public interface LoginService {
-    @POST("user/login")
-    Observable<ServiceResponse<ArrayList<LoggedInUser>>> login(@Body LoginData loginData);
+    @POST("auth/login")
+    Observable<ServiceResponse<LoggedInUser>> login(@Body LoginData loginData);
 }

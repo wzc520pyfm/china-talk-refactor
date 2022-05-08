@@ -21,18 +21,25 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.baidu.duer.chinatalk_refactor.R;
 import com.chenenyu.router.Router;
+import com.chenenyu.router.annotation.Route;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+@Route("login")
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    @BindView(R.id.login)
+    QMUIRoundButton loginButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+//        getSupportActionBar().hide(); // 在此页面隐藏安卓原生状态栏(当activity继承自AppCompatActivity时使用getSupportActionBar, 继承自Activity时使用getActionBar, 或者在AndroidManifest中单独为此activity设置一个无actionBar的主题)
         ButterKnife.bind(this);
         // 使用viewModel工厂
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
@@ -40,8 +47,10 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
+        // final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
+        loginButton.setChangeAlphaWhenDisable(true); // 恢复点击态
 
         // 监听LoginFormState(表单验证状态类)数据,实时更新UI数据并实现一些额外表单行为
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -146,6 +155,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     @OnClick(R.id.test)
     public void onClick() {
-        Router.build("game").go(this);
+        Router.build("real").go(this);
     }
+
 }

@@ -5,6 +5,15 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorTitle">#5980ee</color>
     <color name="colorButton">#5c82ee</color>
+    <color name="blackWord">#3D3D3D</color>
+    <color name="grayWord">#646464</color>
+    <color name="pageBg">#ffffff</color>
+
+
+    <color name="purple">#6e24fa</color>
+    <color name="white">#ffffff</color>
+
+    <color name="color_theme_blue">#5C81EC</color>
 
 <!--    QMUICommon-->
     <color name="app_color_blue">#00A8E1</color>

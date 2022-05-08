@@ -43,16 +43,16 @@ public class LoginViewModel extends ViewModel {
     // 登录事件, 获取登录结果信息
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job. 可以在单独的异步作业中启动
-        Observable<ServiceResponse<ArrayList<LoggedInUser>>> observable = new RetrofitClient.Builder().build().create(LoginService.class).login(new LoginData(username, password));
+        Observable<ServiceResponse<LoggedInUser>> observable = new RetrofitClient.Builder().build().create(LoginService.class).login(new LoginData(username, password));
         observable.subscribeOn(Schedulers.io()) // 发送事件的线程: io操作的线程
                 .observeOn(AndroidSchedulers.mainThread()) // 接收事件的线程: Android的主线程
-                .subscribe(new Observer<ServiceResponse<ArrayList<LoggedInUser>>>() {
+                .subscribe(new Observer<ServiceResponse<LoggedInUser>>() {
                     @Override
                     public void onSubscribe(Disposable d) { }
                     @Override
-                    public void onNext(ServiceResponse<ArrayList<LoggedInUser>> arrayListServiceResponse) {
-                        if(arrayListServiceResponse.getData().size() != 0) {
-                            Result<LoggedInUser> loggedInUser = new Result.Success<>(arrayListServiceResponse.getData().get(0));
+                    public void onNext(ServiceResponse<LoggedInUser> arrayListServiceResponse) {
+                        if(arrayListServiceResponse.getData().getToken() != null) {
+                            Result<LoggedInUser> loggedInUser = new Result.Success<>(arrayListServiceResponse.getData());
                             if (loggedInUser instanceof Result.Success) { // 如果登录结果信息是success
                                 LoggedInUser data = ((Result.Success<LoggedInUser>) loggedInUser).getData(); // 取出user信息
                                 sharedUtil.writeShared("token", "Bearer " + data.getToken()); // 存储token

@@ -7,20 +7,25 @@ import androidx.core.view.ViewCompat;
 import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.animation.CardTransformer;
 import com.baidu.duer.chinatalk_refactor.bean.game.Game;
+import com.chenenyu.router.Router;
 import com.chenenyu.router.annotation.Route;
 import com.qmuiteam.qmui.skin.QMUISkinHelper;
 import com.qmuiteam.qmui.skin.QMUISkinManager;
 import com.qmuiteam.qmui.skin.QMUISkinValueBuilder;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.util.QMUIResHelper;
+import com.qmuiteam.qmui.util.QMUIViewHelper;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
 import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +41,8 @@ public class GameActivity extends AppCompatActivity {
 
     @BindView(R.id.pager)
     QMUIViewPager mViewPager;
+    @BindView(R.id.topbar)
+    QMUITopBarLayout mTopBar;
 
     private QMUIPopup mNormalPopup;
 
@@ -49,8 +56,27 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         ButterKnife.bind(this);
         mContext = this;
+        initTopBar();
         initData(5);
         initPagers();
+    }
+
+    private void initTopBar() {
+        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        mTopBar.setTitle(R.string.game);
+        mTopBar.addRightImageButton(R.drawable.ic_baseline_tip, QMUIViewHelper.generateViewId())
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showTip(v);
+                    }
+                });
     }
 
     private void initData(int count) {
@@ -59,6 +85,15 @@ public class GameActivity extends AppCompatActivity {
             gamesList.add(new Game(R.drawable.example));
         }
 
+    }
+
+    @OnClick(R.id.collection)
+    public void onClick(View v) {
+        if(v.isSelected()) {
+            v.setSelected(false);
+        } else {
+            v.setSelected(true);
+        }
     }
 
     private void initPagers() {
@@ -73,13 +108,12 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.tips)
-    void onClickBtn1(View v) {
+    void showTip(View v) {
         TextView textView = new TextView(mContext);
         textView.setLineSpacing(QMUIDisplayHelper.dp2px(mContext, 4), 1.0f);
         int padding = QMUIDisplayHelper.dp2px(mContext, 20);
         textView.setPadding(padding, padding, padding, padding);
-        textView.setText("QMUIBasePopup 可以设置其位置以及显示和隐藏的动画");
+        textView.setText(R.string.game_warm_tip);
         textView.setTextColor(
                 QMUIResHelper.getAttrColor(mContext, R.attr.app_skin_common_title_text_color));
         QMUISkinValueBuilder builder = QMUISkinValueBuilder.acquire();
@@ -87,7 +121,7 @@ public class GameActivity extends AppCompatActivity {
         QMUISkinHelper.setSkinValue(textView, builder);
         builder.release();
         mNormalPopup = QMUIPopups.popup(mContext, QMUIDisplayHelper.dp2px(mContext, 250))
-                .preferredDirection(QMUIPopup.DIRECTION_BOTTOM)
+                .preferredDirection(QMUIPopup.DIRECTION_CENTER_IN_SCREEN) // 在页面中间展示
                 .view(textView)
                 .skinManager(QMUISkinManager.defaultInstance(mContext))
                 .edgeProtection(QMUIDisplayHelper.dp2px(mContext, 20))

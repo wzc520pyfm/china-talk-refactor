@@ -39,6 +39,7 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <!-- QMUI默认的TopBar样式 -->
     <style name="QDTopBar" parent="QMUI.TopBar">
         <item name="qmui_topbar_height">48dp</item>
         <item name="qmui_topbar_image_btn_height">48dp</item>

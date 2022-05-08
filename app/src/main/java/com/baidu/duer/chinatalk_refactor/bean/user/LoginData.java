@@ -7,25 +7,25 @@ import androidx.annotation.NonNull;
  */
 public class LoginData {
     @NonNull
-    private String user_phone;
+    private String phone;
     @NonNull
     private String password;
     @NonNull
-    private Integer user_role;
+    private String role;
 
-    public LoginData(@NonNull String user_phone, @NonNull String password) {
-        this.user_phone = user_phone;
+    public LoginData(@NonNull String phone, @NonNull String password) {
+        this.phone = phone;
         this.password = password;
-        this.user_role = 1;
+        this.role = "Student";
     }
 
     @NonNull
-    public String getUser_phone() {
-        return user_phone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUser_phone(@NonNull String user_phone) {
-        this.user_phone = user_phone;
+    public void setPhone(@NonNull String phone) {
+        this.phone = phone;
     }
 
     @NonNull
@@ -40,9 +40,9 @@ public class LoginData {
     @Override
     public String toString() {
         return "LoginForm{" +
-                "user_phone='" + user_phone + '\'' +
+                "user_phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
-                ", user_role=" + user_role +
+                ", user_role=" + phone +
                 '}';
     }
 }

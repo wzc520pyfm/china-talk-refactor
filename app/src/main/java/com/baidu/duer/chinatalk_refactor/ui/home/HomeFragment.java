@@ -17,22 +17,29 @@ import androidx.lifecycle.ViewModelProviders;
 import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeListener;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
+import com.chenenyu.router.Router;
 import com.iflytek.cloud.SpeechError;
+import com.qmuiteam.qmui.layout.QMUILinearLayout;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.util.QMUIViewHelper;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class HomeFragment extends Fragment implements RecognizeListener {
+public class HomeFragment extends Fragment {
     //UI视图的展示和事件包含在Fragment或Activity中
 
     private Unbinder unbinder;
     private HomeViewModel homeViewModel;
-    @BindView(R.id.tvContent)
-    TextView tvContent;
-    @BindView(R.id.text_home)
-    TextView textView;
+    @BindView(R.id.search_input)
+    QMUILinearLayout searchInput;
+    @BindView(R.id.study_plain)
+    QMUILinearLayout studyPlain;
+    @BindView(R.id.wrong_topic)
+    QMUILinearLayout wrongTopic;
 
     public Context mContext;
 
@@ -46,41 +53,33 @@ public class HomeFragment extends Fragment implements RecognizeListener {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         // fragment绑定butterKnife
         unbinder = ButterKnife.bind(this,root);
-        // 让UI观察ViewModel中数据的变化,并实时更新UI
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        homeViewModel.getRecognizeText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                tvContent.setText(s);
-            }
-        });
 
-        //初始化讯飞音频读写管理类
-        RecognizeSpeechManager.instance().init(mContext);
-        RecognizeSpeechManager.instance().setRecognizeListener(this);
+        initStyle();
 
         //返回视图对象
         return root;
     }
 
-    @OnClick({R.id.btStart, R.id.btCancel, R.id.btStop})
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btStart:
-                RecognizeSpeechManager.instance().startRecognize();
-                break;
-            case R.id.btCancel:
-                RecognizeSpeechManager.instance().cancelRecognize();
-                break;
-            case R.id.btStop:
-                RecognizeSpeechManager.instance().stopRecognize();
-                break;
-        }
+    void initStyle() {
+        searchInput.setShadowColor(0xff0000ff); // 阴影色
+        // searchInput.setRadius(QMUIDisplayHelper.dp2px(mContext, 15)); // 设置圆角
+        searchInput.setRadiusAndShadow(QMUIDisplayHelper.dp2px(mContext, 15),
+                QMUIDisplayHelper.dp2px(getActivity(), 14), 0.25f); // 设置圆角、模糊（发散）、色彩深度
+        studyPlain.setShadowColor(0xff0000ff); // 阴影色
+        studyPlain.setRadiusAndShadow(QMUIDisplayHelper.dp2px(mContext, 15),
+                QMUIDisplayHelper.dp2px(getActivity(), 10), 0.4f);
+        wrongTopic.setShadowColor(0xff0000ff); // 阴影色
+        wrongTopic.setRadiusAndShadow(QMUIDisplayHelper.dp2px(mContext, 15),
+                QMUIDisplayHelper.dp2px(getActivity(), 10), 0.4f);
+    }
+
+    @OnClick(R.id.wrong_topic)
+    public void onClick1() {
+        Router.build("wrong").go(this);
+    }
+    @OnClick(R.id.taste_test)
+    public void onClick2() {
+        Router.build("game").go(this);
     }
 
     @Override
@@ -89,21 +88,5 @@ public class HomeFragment extends Fragment implements RecognizeListener {
         if(unbinder != null) {
             unbinder.unbind();//视图销毁时必须解绑
         }
-        RecognizeSpeechManager.instance().release();
-    }
-
-    @Override
-    public void onNewResult(String result) {
-        homeViewModel.setRecognizeText(homeViewModel.getRecognizeText().getValue() + "最新翻译：" + result + "\n");
-    }
-
-    @Override
-    public void onTotalResult(String result, boolean isLast) {
-        homeViewModel.setRecognizeText(homeViewModel.getRecognizeText().getValue() + "所有翻译：" + result + "\n");
-    }
-
-    @Override
-    public void onError(SpeechError speechError) {
-        Toast.makeText(mContext, "出错了 " + speechError, Toast.LENGTH_SHORT).show();
     }
 }

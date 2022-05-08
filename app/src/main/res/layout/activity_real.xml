@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/qmui_topbar_height"
+        android:background="@color/qmui_config_color_white"
+        android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.game.GameActivity">
+
+
+            <com.qmuiteam.qmui.widget.QMUIViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/onTopicBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </com.qmuiteam.qmui.widget.QMUIViewPager>
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/onTopicBtn"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="54dp"
+                android:layout_marginBottom="32dp"
+                android:text="@string/on_topic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:qmui_isRadiusAdjustBounds="true" />
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/nextBtn"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="16dp"
+                android:text="@string/nest_question"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+                app:layout_constraintTop_toTopOf="@+id/onTopicBtn"
+                app:qmui_isRadiusAdjustBounds="true" />
+
+            <ImageButton
+                android:id="@+id/imageButton5"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="32dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="@+id/nextBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/nextBtn"
+                app:srcCompat="@drawable/ic_question_menu" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true" >
+
+    </com.qmuiteam.qmui.widget.QMUITopBarLayout>
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

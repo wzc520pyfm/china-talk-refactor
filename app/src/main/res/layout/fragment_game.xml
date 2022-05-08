@@ -8,13 +8,16 @@
 
     <com.qmuiteam.qmui.widget.QMUIRadiusImageView2
         android:id="@+id/radiusImageView"
-        android:layout_width="342dp"
-        android:layout_height="227dp"
-        android:layout_marginTop="112dp"
+        android:layout_width="0dp"
+        android:layout_height="224dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="54dp"
         android:clickable="true"
         android:scaleType="centerCrop"
         android:src="@drawable/example"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:qmui_border_color="?attr/qmui_config_color_gray_6"
@@ -23,5 +26,108 @@
         app:qmui_selected_border_color="?attr/qmui_config_color_gray_4"
         app:qmui_selected_border_width="1px"
         app:qmui_selected_mask_color="?attr/qmui_config_color_gray_8" />
+
+    <TextView
+        android:id="@+id/gameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/gameTitle"
+        android:textColor="@color/colorTitle"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radiusImageView" />
+
+    <TextView
+        android:id="@+id/gameContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:text="请问: 这是谁?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/gameTitle"
+        app:layout_constraintTop_toBottomOf="@+id/gameTitle" />
+
+    <EditText
+        android:id="@+id/gameAnswerET"
+        android:layout_width="0dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/editTip"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/voice_btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/gameContent"
+        app:layout_constraintTop_toBottomOf="@+id/gameContent" />
+
+    <ImageButton
+        android:id="@+id/voice_btn"
+        android:layout_width="33dp"
+        android:layout_height="31dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/gameAnswerET"
+        app:layout_constraintEnd_toEndOf="@+id/gameContent"
+        app:layout_constraintTop_toTopOf="@+id/gameAnswerET"
+        app:srcCompat="@drawable/ic_baseline__voice" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="答题结果"
+        android:textColor="@color/colorTitle"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/gameContent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/gameAnswerET"
+        app:layout_constraintTop_toBottomOf="@+id/gameAnswerET" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="100dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="撒旦哈萨克达四大杀手锏和大师级的哈接收到十大杀手锏的哈数据的哈时间电话撒建好的撒建好的阿斯加德has将回答设计好的撒简化大数建行到家撒撒旦哈萨克达四大杀手锏和大师级的哈接收到十大杀手锏的哈数据的哈时间电话撒建好的撒建好的阿斯加德has将回答设计好的撒简化大数建行到家撒撒旦哈萨克达四大杀手锏和大师级的哈接收到十大杀手锏的哈数据的哈时间电话撒建好的撒建好的阿斯加德has将回答设计好的撒简化大数建行到家撒撒旦哈萨克达四大杀手锏和大师级的哈接收到十大杀手锏的哈数据的哈时间电话撒建好的撒建好的阿斯加德has将回答设计好的撒简化大数建行到家撒撒旦哈萨克达四大杀手锏和大师级的哈接收到十大杀手锏的哈数据的哈时间电话撒建好的撒建好的阿斯加德has将回答设计好的撒简化大数建行到家撒撒旦哈萨克达四大杀手锏和大师级的哈接收到十大杀手锏的哈数据的哈时间电话撒建好的撒建好的阿斯加德has将回答设计好的撒简化大数建行到家撒"
+                android:visibility="visible" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/voice_input"
+        android:layout_width="0dp"
+        android:layout_height="336dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/pageBg"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameAnswerET">
+
+        <include layout="@layout/voice_input" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
