@@ -68,7 +68,7 @@ public class RealActivity extends AppCompatActivity {
         View view = inflater.inflate(R.layout.exam_time, null); // 获取view
         mTopBar.addRightView(view, QMUIViewHelper.generateViewId()); // 将view绑定到topbar
         TextView tv = mTopBar.findViewById(R.id.time);
-        tv.setText("lalala"); // 重设view内容
+        tv.setText("00:20:30"); // 重设view内容
     }
 
     private void initData(int count) {
@@ -78,7 +78,7 @@ public class RealActivity extends AppCompatActivity {
             items.add("选项"+i);
             items.add("选项"+i+1);
             items.add("选项"+i+2);
-            realQuestionsList.add(new RealQuestion(i, "题目题目踢踢踢踢踢踢ititit以体态题目题目踢踢踢踢踢踢ititit以体态题目题目踢踢踢踢踢踢ititit以体态题目题目踢踢踢踢踢踢ititit以体态题目题目踢踢踢踢踢踢ititit以体态题目题目踢踢踢踢踢踢ititit以体态题目题目踢踢踢踢踢踢ititit以体态"+i, items, "选项2"));
+            realQuestionsList.add(new RealQuestion(i, i+". 请选择写法正确的词语", items, "选项02"));
         }
 
     }

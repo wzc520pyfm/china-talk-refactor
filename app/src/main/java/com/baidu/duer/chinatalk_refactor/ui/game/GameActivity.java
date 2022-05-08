@@ -3,12 +3,16 @@ package com.baidu.duer.chinatalk_refactor.ui.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.animation.CardTransformer;
 import com.baidu.duer.chinatalk_refactor.bean.game.Game;
+import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeListener;
+import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
 import com.chenenyu.router.Router;
 import com.chenenyu.router.annotation.Route;
+import com.iflytek.cloud.SpeechError;
 import com.qmuiteam.qmui.skin.QMUISkinHelper;
 import com.qmuiteam.qmui.skin.QMUISkinManager;
 import com.qmuiteam.qmui.skin.QMUISkinValueBuilder;
@@ -26,6 +30,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +42,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route("game")
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements RecognizeListener {
 
     @BindView(R.id.pager)
     QMUIViewPager mViewPager;
@@ -45,6 +50,9 @@ public class GameActivity extends AppCompatActivity {
     QMUITopBarLayout mTopBar;
 
     private QMUIPopup mNormalPopup;
+    // 记录当前pager的index
+    private int mCurrentPosition;
+    GameFragmentAdapter pagerAdapter;
 
     public Context mContext;
 
@@ -59,6 +67,9 @@ public class GameActivity extends AppCompatActivity {
         initTopBar();
         initData(5);
         initPagers();
+
+        RecognizeSpeechManager.instance().init(mContext);
+        RecognizeSpeechManager.instance().setRecognizeListener(this);
     }
 
     private void initTopBar() {
@@ -97,16 +108,27 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void initPagers() {
-        GameFragmentAdapter pagerAdapter = new GameFragmentAdapter(mContext, gamesList);
+        pagerAdapter = new GameFragmentAdapter(mContext, gamesList);
         //setPageTransformer默认采用ViewCompat.LAYER_TYPE_HARDWARE， 但它在某些4.x的国产机下会crash
         boolean canUseHardware = Build.VERSION.SDK_INT >= 21;
         mViewPager.setPageTransformer(false, new CardTransformer(),
                 canUseHardware ? ViewCompat.LAYER_TYPE_HARDWARE : ViewCompat.LAYER_TYPE_SOFTWARE);
         mViewPager.setInfiniteRatio(500);
-        mViewPager.setEnableLoop(true);
+        // mViewPager.setEnableLoop(true);
         mViewPager.setAdapter(pagerAdapter);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+                mCurrentPosition = position;
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
-
 
     void showTip(View v) {
         TextView textView = new TextView(mContext);
@@ -138,5 +160,23 @@ public class GameActivity extends AppCompatActivity {
                     }
                 })
                 .show(v);
+    }
+
+    @Override
+    public void onNewResult(String result) {
+        // 获取当前页面, 并设置语音识别结果
+        View view = pagerAdapter.getItemAt(mCurrentPosition);
+        EditText et = view.findViewById(R.id.gameAnswerET);
+        et.setText(result);
+    }
+
+    @Override
+    public void onTotalResult(String result, boolean isLast) {
+
+    }
+
+    @Override
+    public void onError(SpeechError speechError) {
+
     }
 }

@@ -7,19 +7,26 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.baidu.duer.chinatalk_refactor.bean.game.Game;
+import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeListener;
+import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
+import com.iflytek.cloud.SpeechError;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
 
 import java.util.ArrayList;
+import com.baidu.duer.chinatalk_refactor.R;
 
 public class GameFragmentAdapter extends QMUIPagerAdapter {
 
     private ArrayList<Game> gamesList;
     private Context context;
+    // 记录fragment的数组
+    private ArrayList<GameFragment> fragments = new ArrayList<>();
 
     public GameFragmentAdapter(Context context, ArrayList<Game> gamesList) {
         super();
         this.context = context;
         this.gamesList = gamesList;
+
     }
 
     @NonNull
@@ -33,6 +40,7 @@ public class GameFragmentAdapter extends QMUIPagerAdapter {
         GameFragment gameView = (GameFragment) item;
         gameView.setImageResource(gamesList.get(position).getImgResource());
         container.addView(gameView);
+        fragments.add(gameView);
     }
 
     @Override
@@ -48,5 +56,14 @@ public class GameFragmentAdapter extends QMUIPagerAdapter {
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
+    }
+
+    /**
+     * 依据index获取指定的fragment
+     * @param position viewpager的index
+     * @return 指定视图
+     */
+    public View getItemAt(int position) {
+        return fragments.get(position);
     }
 }
