@@ -42,8 +42,12 @@
                 android:paddingRight="16dp"
                 android:paddingBottom="10dp"
                 android:text="@string/determine"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:qmui_backgroundColor="@color/color_theme_blue"
+                app:qmui_borderColor="#00FFFFFF"
+                app:qmui_radius="5dp" />
 
             <ImageButton
                 android:id="@+id/collection"

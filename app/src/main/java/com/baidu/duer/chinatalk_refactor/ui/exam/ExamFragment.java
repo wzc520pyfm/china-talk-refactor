@@ -19,11 +19,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.base.BaseRecyclerAdapter;
 import com.baidu.duer.chinatalk_refactor.base.RecyclerViewHolder;
+import com.baidu.duer.chinatalk_refactor.bean.exam.Exam;
 import com.baidu.duer.chinatalk_refactor.iflytek.SynthesizeListener;
 import com.baidu.duer.chinatalk_refactor.iflytek.SynthesizeSpeechManager;
 import com.chenenyu.router.Router;
 import com.iflytek.cloud.SpeechError;
+import com.qmuiteam.qmui.layout.QMUILinearLayout;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,7 +47,7 @@ public class ExamFragment extends Fragment {
     QMUIPullLayout mPullLayout;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
-    private BaseRecyclerAdapter<String> mAdapter;
+    private BaseRecyclerAdapter<Exam> mAdapter;
 
     public Context mContext;
 
@@ -61,7 +65,7 @@ public class ExamFragment extends Fragment {
     }
 
     private void initData() {
-
+        // 监听上拉和下拉动作
         mPullLayout.setActionListener(new QMUIPullLayout.ActionListener() {
             @Override
             public void onActionTriggered(@NonNull QMUIPullLayout.PullAction pullAction) {
@@ -75,7 +79,7 @@ public class ExamFragment extends Fragment {
                         }
                         mPullLayout.finishActionRun(pullAction);
                     }
-                }, 3000);
+                }, 1000);
             }
         });
 
@@ -87,32 +91,57 @@ public class ExamFragment extends Fragment {
             }
         });
 
-        mAdapter = new BaseRecyclerAdapter<String>(getContext(), null) {
+        mAdapter = new BaseRecyclerAdapter<Exam>(getContext(), null) {
+            /**
+             * 获取视图
+             */
             @Override
             public int getItemLayoutId(int viewType) {
-                return android.R.layout.simple_list_item_1;
-                // return R.layout.exam_list_item;
+                return R.layout.exam_list_item;
             }
 
+            /**
+             * 处理视图
+             */
             @Override
-            public void bindData(RecyclerViewHolder holder, int position, String item) {
-                holder.setText(android.R.id.text1, item);
+            public void bindData(RecyclerViewHolder holder, int position, Exam item) {
+                holder.setText(R.id.exam_title, item.getExamName());
+                holder.setText(R.id.total, ""+item.getTotal());
+                holder.setText(R.id.highest_score, ""+item.getHighestScore());
+                holder.setText(R.id.exam_time, ""+item.getTime());
+                QMUILinearLayout examBg = (QMUILinearLayout)holder.getView(R.id.exam_card);
+                QMUIRoundButton btnStart = (QMUIRoundButton)holder.getView(R.id.btStart);
+                btnStart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Router.build("real").go(mContext);
+                    }
+                });
+                examBg.setShadowColor(0xff0000ff); // 阴影色
+                examBg.setRadiusAndShadow(QMUIDisplayHelper.dp2px(mContext, 15),
+                        QMUIDisplayHelper.dp2px(getActivity(), 5), 0.2f);
             }
         };
+        /**
+         * 监听点击事件
+         */
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int pos) {
                 Toast.makeText(getContext(), "click position=" + pos, Toast.LENGTH_SHORT).show();
-                Router.build("real").go(mContext);
             }
         });
         mRecyclerView.setAdapter(mAdapter);
+        // 初始化数据
         onDataLoaded();
     }
 
     private void onDataLoaded() {
-        List<String> data = new ArrayList<>(Arrays.asList("Helps", "Maintain", "Liver", "Health", "Function", "Supports", "Healthy", "Fat",
-                "Metabolism", "Nuturally", "Bracket", "Refrigerator", "Bathtub", "Wardrobe", "Comb", "Apron", "Carpet", "Bolster", "Pillow", "Cushion"));
+        ArrayList<Exam> data = new ArrayList<>();
+        for(int i = 0; i < 5; i++) {
+            Exam exam = new Exam(0, "试卷"+i, 10, 10, 60);
+            data.add(exam);
+        }
         Collections.shuffle(data);
         mAdapter.setData(data);
     }
@@ -121,10 +150,11 @@ public class ExamFragment extends Fragment {
      * 上拉刷新
      */
     private void onRefreshData(){
-        List<String> data = new ArrayList<>();
+        ArrayList<Exam> data = new ArrayList<>();
         long id = System.currentTimeMillis();
-        for(int i = 0; i < 10; i++){
-            data.add("onRefreshData-" + id + "-"+ i);
+        for(int i = 0; i < 5; i++){
+            Exam exam = new Exam(0, "onRefresh试卷-" + id + "-"+ i, 10, 10, 60);
+            data.add(exam);
         }
         mAdapter.prepend(data);
         mRecyclerView.scrollToPosition(0);
@@ -134,10 +164,11 @@ public class ExamFragment extends Fragment {
      * 下拉加载
      */
     private void onLoadMore(){
-        List<String> data = new ArrayList<>();
+        ArrayList<Exam> data = new ArrayList<>();
         long id = System.currentTimeMillis();
-        for(int i = 0; i < 10; i++){
-            data.add("onLoadMore-" + id + "-"+ i);
+        for(int i = 0; i < 5; i++){
+            Exam exam = new Exam(0, "onLoadMore试卷-" + id + "-"+ i, 10, 10, 60);
+            data.add(exam);
         }
         mAdapter.append(data);
     }

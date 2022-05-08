@@ -38,9 +38,13 @@
                 android:layout_marginStart="54dp"
                 android:layout_marginBottom="32dp"
                 android:text="@string/on_topic"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:qmui_isRadiusAdjustBounds="true" />
+                app:qmui_backgroundColor="@color/color_theme_blue"
+                app:qmui_borderColor="#00FFFFFF"
+                app:qmui_isRadiusAdjustBounds="true"
+                app:qmui_radius="5dp" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 android:id="@+id/nextBtn"
@@ -49,9 +53,13 @@
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="16dp"
                 android:text="@string/nest_question"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/imageButton5"
                 app:layout_constraintTop_toTopOf="@+id/onTopicBtn"
-                app:qmui_isRadiusAdjustBounds="true" />
+                app:qmui_backgroundColor="@color/color_theme_blue"
+                app:qmui_borderColor="#00FFFFFF"
+                app:qmui_isRadiusAdjustBounds="true"
+                app:qmui_radius="5dp" />
 
             <ImageButton
                 android:id="@+id/imageButton5"

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <com.qmuiteam.qmui.layout.QMUILinearLayout
         android:id="@+id/exam_card"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/qmui_config_color_white"
         android:gravity="center"
         android:orientation="vertical"
@@ -42,14 +41,16 @@
 
             <TextView
                 android:id="@+id/exam_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
                 android:text="Random test(1)"
                 android:textColor="@color/color_theme_blue"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/exam_icon"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,17 +107,21 @@
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 android:id="@+id/btStart"
-                android:layout_width="140dp"
+                android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/start_test"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView17"
-                app:qmui_isRadiusAdjustBounds="true" />
+                app:qmui_backgroundColor="@color/color_theme_blue"
+                app:qmui_borderColor="#00FFFFFF"
+                app:qmui_isRadiusAdjustBounds="true"
+                app:qmui_radius="5dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.qmuiteam.qmui.layout.QMUILinearLayout>
