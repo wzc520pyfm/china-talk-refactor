@@ -10,6 +10,9 @@ import com.baidu.duer.chinatalk_refactor.animation.CardTransformer;
 import com.baidu.duer.chinatalk_refactor.bean.game.Game;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeListener;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
+import com.baidu.duer.chinatalk_refactor.iflytek.SynthesizeListener;
+import com.baidu.duer.chinatalk_refactor.iflytek.SynthesizeSpeechManager;
+import com.baidu.duer.chinatalk_refactor.utils.StringUtils;
 import com.chenenyu.router.Router;
 import com.chenenyu.router.annotation.Route;
 import com.iflytek.cloud.SpeechError;
@@ -42,7 +45,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route("game")
-public class GameActivity extends AppCompatActivity implements RecognizeListener {
+public class GameActivity extends AppCompatActivity implements RecognizeListener, SynthesizeListener {
 
     @BindView(R.id.pager)
     QMUIViewPager mViewPager;
@@ -70,6 +73,8 @@ public class GameActivity extends AppCompatActivity implements RecognizeListener
 
         RecognizeSpeechManager.instance().init(mContext);
         RecognizeSpeechManager.instance().setRecognizeListener(this);
+        SynthesizeSpeechManager.instance().init(mContext);
+        SynthesizeSpeechManager.instance().setSynthesizeListener(this);
     }
 
     private void initTopBar() {
@@ -93,7 +98,7 @@ public class GameActivity extends AppCompatActivity implements RecognizeListener
     private void initData(int count) {
 
         for (int i = 0; i < count; i++) {
-            gamesList.add(new Game(R.drawable.example));
+            gamesList.add(new Game(R.drawable.game_example));
         }
 
     }
@@ -105,6 +110,22 @@ public class GameActivity extends AppCompatActivity implements RecognizeListener
         } else {
             v.setSelected(true);
         }
+    }
+    @OnClick(R.id.determine)
+    public void onClick2(View v) {
+        View view = pagerAdapter.getItemAt(mCurrentPosition);
+        EditText et = view.findViewById(R.id.gameAnswerET);
+        TextView answerResult = view.findViewById(R.id.answer_result);
+        if(StringUtils.GetDeleteShort(et.getText().toString()).equals("饺子")) {
+            // 回答正确
+            answerResult.setText("答对了, 继续加油吧!");
+            answerResult.setTextColor(getColor(R.color.color_theme_blue));
+        } else {
+            // 回答错误
+            answerResult.setText("答错了, 再想一下吧。");
+            answerResult.setTextColor(getColor(R.color.qmui_config_color_red));
+        }
+        SynthesizeSpeechManager.instance().startSpeak(answerResult.getText().toString());
     }
 
     private void initPagers() {
