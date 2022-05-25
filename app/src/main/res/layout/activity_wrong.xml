@@ -47,7 +47,7 @@
                 app:qmui_radius="5dp" />
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                android:id="@+id/nextBtn"
+                android:id="@+id/submitBtn"
                 android:layout_width="110dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
@@ -67,9 +67,9 @@
                 android:layout_height="15dp"
                 android:layout_marginEnd="32dp"
                 android:scaleType="fitXY"
-                app:layout_constraintBottom_toBottomOf="@+id/nextBtn"
+                app:layout_constraintBottom_toBottomOf="@+id/submitBtn"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/nextBtn"
+                app:layout_constraintTop_toTopOf="@+id/submitBtn"
                 app:srcCompat="@drawable/ic_question_menu" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,29 +19,24 @@ import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.base.BaseRecyclerAdapter;
 import com.baidu.duer.chinatalk_refactor.base.RecyclerViewHolder;
 import com.baidu.duer.chinatalk_refactor.bean.exam.Exam;
-import com.baidu.duer.chinatalk_refactor.iflytek.SynthesizeListener;
-import com.baidu.duer.chinatalk_refactor.iflytek.SynthesizeSpeechManager;
 import com.chenenyu.router.Router;
-import com.iflytek.cloud.SpeechError;
+import com.chenenyu.router.annotation.Route;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.pullLayout.QMUIPullLayout;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
+@Route("exams")
 public class ExamFragment extends Fragment {
 
     private Unbinder unbinder;
-    private ExamViewModel dashboardViewModel;
+    private ExamViewModel examViewModel;
     @BindView(R.id.pull_layout)
     QMUIPullLayout mPullLayout;
     @BindView(R.id.recyclerView)
@@ -54,14 +48,33 @@ public class ExamFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         mContext = this.getContext();
-        dashboardViewModel =
+        examViewModel =
                 ViewModelProviders.of(this).get(ExamViewModel.class);
         View root = inflater.inflate(R.layout.fragment_exam, container, false);
         unbinder = ButterKnife.bind(this,root);
+        examViewModel.getExamResult().observe(getViewLifecycleOwner(), new Observer<ExamsResult>() {
+            @Override
+            public void onChanged(ExamsResult examResult) {
+                if (examResult.getError() != null) { // 展示出错信息
+                    showLoginFailed(examResult.getError());
+                }
+                if (examResult.getSuccess() != null) { // 数据获取成功,将数据公开给UI,UI拿到数据执行一些操作
+                    updateUiWithUser(examResult.getSuccess());
+                }
+            }
+        });
 
         initData();
 
         return root;
+    }
+
+    /**
+     * 试卷获取成功,拿到试卷信息,执行后续操作
+     */
+    private void updateUiWithUser(GettedInExamsView model) {
+        Collections.shuffle(model.getExams());
+        mAdapter.setData(model.getExams());
     }
 
     private void initData() {
@@ -105,16 +118,22 @@ public class ExamFragment extends Fragment {
              */
             @Override
             public void bindData(RecyclerViewHolder holder, int position, Exam item) {
-                holder.setText(R.id.exam_title, item.getExamName());
+                holder.setText(R.id.exam_title, item.getName());
                 holder.setText(R.id.total, ""+item.getTotal());
-                holder.setText(R.id.highest_score, ""+item.getHighestScore());
-                holder.setText(R.id.exam_time, ""+item.getTime());
+                if(item.getGradeRecords().size() > 0) {
+                    holder.setText(R.id.highest_score, ""+item.getGradeRecords().get(0).getScore());
+                } else {
+                    holder.setText(R.id.highest_score, "0");
+                }
+                holder.setText(R.id.exam_time, ""+item.getTimeLimit());
                 QMUILinearLayout examBg = (QMUILinearLayout)holder.getView(R.id.exam_card);
                 QMUIRoundButton btnStart = (QMUIRoundButton)holder.getView(R.id.btStart);
                 btnStart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Router.build("real").go(mContext);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("id", item.getId());
+                        Router.build("real").with(bundle).go(mContext);
                     }
                 });
                 examBg.setShadowColor(0xff0000ff); // 阴影色
@@ -132,45 +151,21 @@ public class ExamFragment extends Fragment {
             }
         });
         mRecyclerView.setAdapter(mAdapter);
-        // 初始化数据
-        onDataLoaded();
-    }
-
-    private void onDataLoaded() {
-        ArrayList<Exam> data = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
-            Exam exam = new Exam(0, "试卷"+i, 10, 10, 60);
-            data.add(exam);
-        }
-        Collections.shuffle(data);
-        mAdapter.setData(data);
     }
 
     /**
      * 上拉刷新
      */
     private void onRefreshData(){
-        ArrayList<Exam> data = new ArrayList<>();
-        long id = System.currentTimeMillis();
-        for(int i = 0; i < 5; i++){
-            Exam exam = new Exam(0, "onRefresh试卷-" + id + "-"+ i, 10, 10, 60);
-            data.add(exam);
-        }
-        mAdapter.prepend(data);
-        mRecyclerView.scrollToPosition(0);
+//        mAdapter.prepend(examViewModel.onRefreshData());
+//        mRecyclerView.scrollToPosition(0);
     }
 
     /**
      * 下拉加载
      */
     private void onLoadMore(){
-        ArrayList<Exam> data = new ArrayList<>();
-        long id = System.currentTimeMillis();
-        for(int i = 0; i < 5; i++){
-            Exam exam = new Exam(0, "onLoadMore试卷-" + id + "-"+ i, 10, 10, 60);
-            data.add(exam);
-        }
-        mAdapter.append(data);
+//        mAdapter.append(examViewModel.onLoadMore());
     }
 
     @Override
@@ -179,6 +174,10 @@ public class ExamFragment extends Fragment {
         if(unbinder != null) {
             unbinder.unbind();//视图销毁时必须解绑
         }
+    }
+
+    private void showLoginFailed(@StringRes Integer errorString) {
+        Toast.makeText(mContext, errorString, Toast.LENGTH_SHORT).show();
     }
 
 }

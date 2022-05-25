@@ -27,7 +27,7 @@
 
     <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
 <!--    <style name="AppTheme" parent="QMUI.Compat">-->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/color_theme_blue</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!-- 配置Android提供的theme -->

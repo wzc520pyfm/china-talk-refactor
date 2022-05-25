@@ -7,14 +7,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.baidu.duer.chinatalk_refactor.R;
-import com.baidu.duer.chinatalk_refactor.bean.real.RealQuestion;
+import com.baidu.duer.chinatalk_refactor.bean.question.Question;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
 public class WrongFragment extends FrameLayout {
     private View root;
     Context mContext;
 
-    public WrongFragment(Context context, RealQuestion realQuestion) {
+    public WrongFragment(Context context, Question question) {
         super(context);
         this.mContext = context;
 

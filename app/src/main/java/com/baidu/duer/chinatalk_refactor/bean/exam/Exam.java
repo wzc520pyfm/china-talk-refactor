@@ -1,34 +1,58 @@
 package com.baidu.duer.chinatalk_refactor.bean.exam;
 
+import androidx.annotation.NonNull;
+
+import com.baidu.duer.chinatalk_refactor.bean.record.GradeRecords;
+
+import java.util.ArrayList;
+
+/**
+ * 试卷实体
+ */
 public class Exam {
-    private int examId; // 试卷id
-    private String examName; // 试卷名
+    @NonNull
+    private int id; // 试卷id
+    @NonNull
+    private String name; // 试卷名
+    @NonNull
+    private String type; // 试卷分类
+    private String description; // 描述
     private int total; // 总题数
-    private int highestScore; // 最高分
-    private int time; // 测试时长, 单位min
+    private int totalScore; // 总分
+    private int timeLimit; // 测试时长, 单位min
+    private ArrayList<Score> scorePapers; // 题目分值
+    private ArrayList<GradeRecords> gradeRecords; // 相关的最高分记录(一般接口返回当前用户的最高分记录)
 
-    public Exam(int examId, String examName, int total, int highestScore, int time) {
-        this.examId = examId;
-        this.examName = examName;
-        this.total = total;
-        this.highestScore = highestScore;
-        this.time = time;
+    public int getId() {
+        return id;
     }
 
-    public int getExamId() {
-        return examId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setExamId(int examId) {
-        this.examId = examId;
+    public String getName() {
+        return name;
     }
 
-    public String getExamName() {
-        return examName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setExamName(String examName) {
-        this.examName = examName;
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getTotal() {
@@ -39,30 +63,50 @@ public class Exam {
         this.total = total;
     }
 
-    public int getHighestScore() {
-        return highestScore;
+    public int getTotalScore() {
+        return totalScore;
     }
 
-    public void setHighestScore(int highestScore) {
-        this.highestScore = highestScore;
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
     }
 
-    public int getTime() {
-        return time;
+    public int getTimeLimit() {
+        return timeLimit;
     }
 
-    public void setTime(int time) {
-        this.time = time;
+    public void setTimeLimit(int timeLimit) {
+        this.timeLimit = timeLimit;
+    }
+
+    public ArrayList<Score> getScorePapers() {
+        return scorePapers;
+    }
+
+    public void setScorePapers(ArrayList<Score> scorePapers) {
+        this.scorePapers = scorePapers;
+    }
+
+    public ArrayList<GradeRecords> getGradeRecords() {
+        return gradeRecords;
+    }
+
+    public void setGradeRecords(ArrayList<GradeRecords> gradeRecords) {
+        this.gradeRecords = gradeRecords;
     }
 
     @Override
     public String toString() {
         return "Exam{" +
-                "examId=" + examId +
-                ", examName='" + examName + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", description='" + description + '\'' +
                 ", total=" + total +
-                ", highestScore=" + highestScore +
-                ", time=" + time +
+                ", totalScore=" + totalScore +
+                ", timeLimit=" + timeLimit +
+                ", scorePapers=" + scorePapers +
+                ", gradeRecords=" + gradeRecords +
                 '}';
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,8 @@ public class HomeFragment extends Fragment {
     QMUILinearLayout studyPlain;
     @BindView(R.id.wrong_topic)
     QMUILinearLayout wrongTopic;
+    @BindView(R.id.editTextSearch)
+    EditText editTextSearch;
 
     public Context mContext;
 

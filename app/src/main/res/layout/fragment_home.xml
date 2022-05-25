@@ -56,7 +56,7 @@
     <com.qmuiteam.qmui.layout.QMUILinearLayout
         android:id="@+id/search_input"
         android:layout_width="310dp"
-        android:layout_height="62dp"
+        android:layout_height="52dp"
         android:layout_gravity="center_horizontal"
         android:background="@color/qmui_config_color_white"
         android:gravity="center"
@@ -70,8 +70,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+            <!-- 为EditText的父控件添加focusable和focusableInTouchMode可让et自动失焦 -->
             <EditText
                 android:id="@+id/editTextSearch"
                 android:layout_width="250dp"
@@ -85,9 +87,10 @@
 
             <ImageButton
                 android:id="@+id/imageButton4"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_search"
                 app:layout_constraintBottom_toBottomOf="@+id/editTextSearch"

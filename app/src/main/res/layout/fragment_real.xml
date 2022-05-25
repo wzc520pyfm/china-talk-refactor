@@ -13,7 +13,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="140dp"
         android:layout_marginEnd="48dp"
-        android:text="18、啥时间的哈设计好的吉安市大厚书段后间距邓啥家属端均杀菌灯哈数据库的和卡圣诞节萨克大厦三等奖安徽师大仕达"
+        android:text="@string/loading"
         android:textColor="@color/blackWord"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

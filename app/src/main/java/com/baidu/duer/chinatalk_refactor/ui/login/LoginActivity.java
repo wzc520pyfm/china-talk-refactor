@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.baidu.duer.chinatalk_refactor.R;
+import com.baidu.duer.chinatalk_refactor.base.BaseActivity;
 import com.chenenyu.router.Router;
 import com.chenenyu.router.annotation.Route;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route("login")
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private LoginViewModel loginViewModel;
     @BindView(R.id.login)

@@ -8,12 +8,14 @@ import android.os.Environment;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.duer.chinatalk_refactor.base.BaseActivity;
 import com.chenenyu.router.annotation.Route;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -54,7 +56,7 @@ import butterknife.ButterKnife;
  * 不要在主线程中访问网络
  */
 @Route("home")
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk";
     private Context mContext;
@@ -68,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
-
+        // 设置软键盘弹出方式(不顶起页面)
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         final RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity or Fragment instance
         // 动态请求文件权限--文件读写权限,麦克风权限
         rxPermissions

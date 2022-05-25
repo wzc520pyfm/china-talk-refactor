@@ -11,12 +11,15 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="loading">Loading...</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="failed">"Unexpected error"</string>
     <string name="sign_out">Sign out</string>
     <string name="skip">Skip</string>
+    <string name="submit">Submit</string>
     <string name="game">Gout spoken</string>
     <string name="determine">determine</string>
     <string name="voice_input">语音输入</string>
@@ -41,6 +44,8 @@
     <string name="total_questions">总题数：</string>
     <string name="highest_score">最高分：</string>
     <string name="exam_time">测试时长：</string>
+    <string name="wrong_source">错误来源：</string>
+    <string name="right_answer">正确答案：</string>
     <string name="start_test">Start Testing</string>
     <string name="nest_question">nest question</string>
     <string name="on_topic">on a topic</string>

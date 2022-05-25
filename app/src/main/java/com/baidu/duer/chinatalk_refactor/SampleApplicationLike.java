@@ -7,6 +7,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.multidex.MultiDex;
 
@@ -18,7 +19,12 @@ import com.tencent.tinker.entry.DefaultApplicationLike;
 import com.tencent.tinker.lib.tinker.Tinker;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
+
+import io.reactivex.exceptions.UndeliverableException;
+import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
 
 @DefaultLifeCycle(application = "com.baidu.duer.chinatalk_refactor.SampleApplication", flags = ShareConstants.TINKER_ENABLE_ALL, loadVerifyFlag = false)
 public class SampleApplicationLike extends DefaultApplicationLike {
@@ -41,6 +47,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         SpeechUtility.createUtility(mContext.get(), SpeechConstant.APPID + "=" + mContext.get().getString(R.string.APPID));
         // 初始化arch
         QMUISwipeBackActivityManager.init(this.getApplication());
+        setRxJavaErrorHandler();
     }
 
     /**
@@ -65,6 +72,49 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         TinkerManager.setUpgradeRetryEnable(true);
         TinkerManager.installTinker(this);
         Tinker.with(getApplication());
+    }
+
+    /**
+     * 对RXJava的错误处理
+     */
+    private void setRxJavaErrorHandler() {
+        if (RxJavaPlugins.getErrorHandler() != null || RxJavaPlugins.isLockdown()) {
+            Log.d("App", "setRxJavaErrorHandler getErrorHandler()!=null||isLockdown()");
+            return;
+        }
+        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable e) {
+                if (e instanceof UndeliverableException) {
+                    e = e.getCause();
+                    Log.d("App", "setRxJavaErrorHandler UndeliverableException=" + e);
+                    return;
+                } else if ((e instanceof IOException)) {
+                    // fine, irrelevant network problem or API that throws on cancellation
+                    return;
+                } else if (e instanceof InterruptedException) {
+                    // fine, some blocking code was interrupted by a dispose call
+                    return;
+                } else if ((e instanceof NullPointerException) || (e instanceof IllegalArgumentException)) {
+                    // that's likely a bug in the application
+                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler =
+                            Thread.currentThread().getUncaughtExceptionHandler();
+                    if (uncaughtExceptionHandler != null) {
+                        uncaughtExceptionHandler.uncaughtException(Thread.currentThread(), e);
+                    }
+                    return;
+                } else if (e instanceof IllegalStateException) {
+                    // that's a bug in RxJava or in a custom operator
+                    Thread.UncaughtExceptionHandler uncaughtExceptionHandler =
+                            Thread.currentThread().getUncaughtExceptionHandler();
+                    if (uncaughtExceptionHandler != null) {
+                        uncaughtExceptionHandler.uncaughtException(Thread.currentThread(), e);
+                    }
+                    return;
+                }
+                Log.d("App", "setRxJavaErrorHandler unknown exception=" + e);
+            }
+        });
     }
 }
 
