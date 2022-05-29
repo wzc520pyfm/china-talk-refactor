@@ -31,7 +31,6 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
 
-
     LiveData<LoginFormState> getLoginFormState() { // 表单验证状态数据
         return loginFormState;
     }
@@ -56,6 +55,8 @@ public class LoginViewModel extends ViewModel {
                             if (loggedInUser instanceof Result.Success) { // 如果登录结果信息是success
                                 LoggedInUser data = ((Result.Success<LoggedInUser>) loggedInUser).getData(); // 取出user信息
                                 sharedUtil.writeShared("token", "Bearer " + data.getToken()); // 存储token
+                                sharedUtil.writeShared("user_phone", username);
+                                sharedUtil.writeShared("password", password);
                                 loginResult.setValue(new LoginResult(new LoggedInUserView(data.getToken()))); // 从取出的信息中再取出向UI公开的数据项
                             } else {
                                 loginResult.setValue(new LoginResult(R.string.login_failed));

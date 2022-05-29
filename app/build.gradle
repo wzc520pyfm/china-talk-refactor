@@ -99,6 +99,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
     // okhttp日志
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    // lottie动画
+    implementation 'com.airbnb.android:lottie:5.0.3'
     // Aria文件下载框架
     implementation 'me.laoyuyu.aria:core:3.8.16'
     annotationProcessor 'me.laoyuyu.aria:compiler:3.8.16'
@@ -112,5 +114,7 @@ dependencies {
     compile 'com.wang.avi:library:2.1.3'
     // 开源androidUI组件库之----dialog组件
     compile 'com.yarolegovich:lovely-dialog:1.1.1'
-
+    // Bmob云服务相关包
+    implementation 'io.github.bmob:android-sdk:3.8.13'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

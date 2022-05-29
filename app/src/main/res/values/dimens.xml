@@ -3,6 +3,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- font -->
+    <!--navBar默认字体大小 -->
+    <dimen name="design_bottom_navigation_text_size">10sp</dimen>
+    <!--navBar选中字体大小 -->
+    <dimen name="design_bottom_navigation_active_text_size">10sp</dimen>
+    <dimen name="small">12sp</dimen>
+    <dimen name="mizi">10sp</dimen>
 
 <!--    QMUI-->
     <dimen name="home_tab_height">49dp</dimen>

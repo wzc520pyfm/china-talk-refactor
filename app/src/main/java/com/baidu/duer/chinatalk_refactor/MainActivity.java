@@ -3,6 +3,7 @@ package com.baidu.duer.chinatalk_refactor;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Gravity;
@@ -15,7 +16,12 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.ImageAssetDelegate;
+import com.airbnb.lottie.LottieComposition;
+import com.airbnb.lottie.LottieDrawable;
+import com.airbnb.lottie.LottieImageAsset;
 import com.baidu.duer.chinatalk_refactor.base.BaseActivity;
+import com.baidu.duer.chinatalk_refactor.base.BaseData;
 import com.chenenyu.router.annotation.Route;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,6 +44,7 @@ import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RawRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -45,6 +52,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,6 +71,12 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.topbar)
     QMUITopBarLayout mTopBar;
     private QMUIPopup languagePopup;
+    @BindView(R.id.nav_view)
+    BottomNavigationView navView;
+    /**
+     * 记录上一次被激活的navItem
+     */
+    private Integer actived = 0;
 
     @SuppressLint("CheckResult")
     @Override
@@ -70,36 +84,37 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
-        // 设置软键盘弹出方式(不顶起页面)
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        ButterKnife.bind(this);
+
         final RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity or Fragment instance
         // 动态请求文件权限--文件读写权限,麦克风权限
         rxPermissions
                 .request(Manifest.permission.READ_EXTERNAL_STORAGE,
-                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                         Manifest.permission.RECORD_AUDIO)
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.RECORD_AUDIO)
                 .subscribe(granted -> {
                     if (granted) {
                         // All requested permissions are granted
-                        Toast.makeText(mContext, "获取权限,可自由发挥", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "获取权限,可自由发挥", Toast.LENGTH_SHORT).show();
                     } else {
                         // At least one permission is denied
-                        Toast.makeText(mContext, "权限被禁,发挥受限", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "权限被禁,发挥受限", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        QMUIStatusBarHelper.translucent(this);
+        initTopBar();
+        initNavBar();
+    }
+    /**
+     * 初始化NavBar
+     */
+    private void initNavBar() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_exam, R.id.navigation_my)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        // 使用NoActionBar主题就不能使用这条代码(这条代码的作用是根据fragment的title更新页面中间的文本显示, actionBar都没了哪来的title?)
-        // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        ButterKnife.bind(this);
-        QMUIStatusBarHelper.translucent(this);
-        initTopBar();
         // 导航切换监听
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
@@ -107,13 +122,23 @@ public class MainActivity extends BaseActivity {
                                              @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 if(destination.getId() == R.id.navigation_home) {
                     resetTopBarTitle(getString(R.string.title_home));
+                    setNavItem(0);
+                    actived = 0;
                 } else if(destination.getId() == R.id.navigation_exam) {
                     resetTopBarTitle(getString(R.string.title_exam));
+                    setNavItem(1);
+                    actived = 1;
                 } else if(destination.getId() == R.id.navigation_my) {
                     resetTopBarTitle(getString(R.string.title_my));
+                    setNavItem(2);
+                    actived = 2;
                 }
             }
         });
+        // 默认选中第一项
+        navView.setSelectedItemId(0);
+        setSilence(1);
+        setSilence(2);
         // 底部导航栏与fragment绑定
         NavigationUI.setupWithNavController(navView, navController);
     }
@@ -139,6 +164,22 @@ public class MainActivity extends BaseActivity {
      */
     private void resetTopBarTitle(String title) {
         mTopBar.setTitle(title);
+    }
+
+    /**
+     * 设置navItem为激活状态
+     */
+    private void setNavItem(Integer index) {
+        playLottie(index, BaseData.getNavItemsActiveLottieAnimation()[index], 1);
+        if(!actived.equals(index)) {
+            setSilence(actived);
+        }
+    }
+    /**
+     * 设置navItem为沉默状态
+     */
+    private void setSilence(Integer index) {
+        playLottie(index, BaseData.getNavItemsSilenceLottieAnimation()[index], 1, 90, 90);
     }
 
     /**
@@ -177,6 +218,29 @@ public class MainActivity extends BaseActivity {
                     }
                 })
                 .show(v);
+    }
+
+    /**
+     * 播放Lottie动画
+     */
+    private void playLottie(Integer index, @RawRes int resId, Integer speed) {
+        LottieDrawable lottieDrawable = new LottieDrawable();
+        LottieComposition.Factory.fromRawFile(mContext,resId,composition -> {
+            lottieDrawable.setComposition(composition);
+        });
+        navView.getMenu().getItem(index).setIcon(lottieDrawable);
+        lottieDrawable.setSpeed(speed);
+        lottieDrawable.start();
+    }
+    private void playLottie(Integer index, @RawRes int resId, Integer speed, Integer min, Integer max) {
+        LottieDrawable lottieDrawable = new LottieDrawable();
+        LottieComposition.Factory.fromRawFile(mContext,resId,composition -> {
+            lottieDrawable.setComposition(composition);
+        });
+        navView.getMenu().getItem(index).setIcon(lottieDrawable);
+        lottieDrawable.setSpeed(speed);
+        lottieDrawable.setMinAndMaxFrame(min, max);
+        lottieDrawable.start();
     }
 
     /**

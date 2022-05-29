@@ -1,19 +1,35 @@
 package com.baidu.duer.chinatalk_refactor.base;
 
+import android.Manifest;
 import android.content.Context;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 /**
  * 自定义的基础activity, 封装了一些通用的操作以减少样板代码
  * 其他activity直接继承改BaseActivity即可
  */
 public class BaseActivity extends AppCompatActivity {
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // 设置软键盘弹出方式(不顶起页面)
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+    }
+
     /**
      * 获取点击事件
      */

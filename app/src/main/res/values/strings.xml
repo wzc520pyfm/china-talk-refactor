@@ -1,8 +1,17 @@
 <resources>
-    <string name="app_name">chinatalk</string>
+    <string name="app_name">ChinaTalk</string>
     <string name="APPID">d213d266</string>
+    <string name="bmobKey">ed682c4fb960a4594fa6db2a322bcfe8</string>
     <string name="baseUrl">https://wzctest.wzc520pyf.cn/chinaTalkNest/api/v1/</string>
     <string name="fapp">chinaTalkAndroid</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="rePassword">Retrieve password</string>
+    <string name="sendVer">Send Code</string>
+    <string name="phone">Phone</string>
+    <string name="verification">Verification</string>
+    <string name="verificationTip">Enter Verification</string>
+    <string name="password">Password</string>
     <string name="title_home">HOME</string>
     <string name="title_exam">EXAM</string>
     <string name="title_my">MY</string>

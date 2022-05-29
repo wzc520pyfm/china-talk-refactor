@@ -1,13 +1,16 @@
 package com.baidu.duer.chinatalk_refactor.ui.login;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,11 +19,13 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.base.BaseActivity;
+import com.baidu.duer.chinatalk_refactor.utils.SharedUtil;
 import com.chenenyu.router.Router;
 import com.chenenyu.router.annotation.Route;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
@@ -30,29 +35,47 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route("login")
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements View.OnTouchListener {
 
+    private String TAG = "LoginActivity";
     private LoginViewModel loginViewModel;
     @BindView(R.id.login)
     QMUIRoundButton loginButton;
+    @BindView(R.id.username)
+    EditText usernameEditText;
+    @BindView(R.id.password)
+    EditText passwordEditText;
+    @BindView(R.id.loading)
+    ProgressBar loadingProgressBar;
+    @BindView(R.id.container)
+    ConstraintLayout layout;
+    private SharedUtil sharedUtil = SharedUtil.getInstance();
+    private GestureDetector mGestureDetector;
+    private Context mContext;
+
+    private static final int FLING_MIN_DISTANCE = 50;
+    private static final int FLING_MIN_VELOCITY = 0;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        getSupportActionBar().hide(); // 在此页面隐藏安卓原生状态栏(当activity继承自AppCompatActivity时使用getSupportActionBar, 继承自Activity时使用getActionBar, 或者在AndroidManifest中单独为此activity设置一个无actionBar的主题)
+        // getSupportActionBar().hide(); // 在此页面隐藏安卓原生状态栏(当activity继承自AppCompatActivity时使用getSupportActionBar, 继承自Activity时使用getActionBar, 或者在AndroidManifest中单独为此activity设置一个无actionBar的主题)
         ButterKnife.bind(this);
+        mContext = this;
         // 使用viewModel工厂
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
-
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        // final Button loginButton = findViewById(R.id.login);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        mGestureDetector = new GestureDetector(this, myGestureListener);
+        layout.setOnTouchListener(this);
+        layout.setLongClickable(true);//必需设置这为true 否则也监听不到手势
 
         loginButton.setChangeAlphaWhenDisable(true); // 恢复点击态
+        init();
+    }
 
+    private void init() {
         // 监听LoginFormState(表单验证状态类)数据,实时更新UI数据并实现一些额外表单行为
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -135,6 +158,18 @@ public class LoginActivity extends BaseActivity {
                         passwordEditText.getText().toString());
             }
         });
+        // 填充上次登录/注册的账号信息
+        String username = sharedUtil.readShared("user_phone", "");
+        String password = sharedUtil.readShared("password", "");
+        if(!username.equals("") && !password.equals("")) {
+            usernameEditText.setText(username);
+            passwordEditText.setText(password);
+        }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return mGestureDetector.onTouchEvent(event);
     }
 
     /**
@@ -159,4 +194,22 @@ public class LoginActivity extends BaseActivity {
         Router.build("real").go(this);
     }
 
+    /**
+     * 滑动监听
+     */
+    GestureDetector.SimpleOnGestureListener myGestureListener = new GestureDetector.SimpleOnGestureListener(){
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+
+            Log.e(TAG, "开始滑动");
+            float x = e1.getX()-e2.getX();
+            float x2 = e2.getX()-e1.getX();
+            if(x > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY){
+                Log.i(TAG,"向左手势");
+            }else if(x2 > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY){
+                Log.i(TAG,"向右手势");
+                Router.build("register").anim(R.anim.left_in, R.anim.right_out).go(mContext);
+            }
+            return false;
+        };
+    };
 }

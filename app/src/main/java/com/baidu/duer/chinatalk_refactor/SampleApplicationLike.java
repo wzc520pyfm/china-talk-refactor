@@ -22,6 +22,7 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
+import cn.bmob.v3.Bmob;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
@@ -41,7 +42,8 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         super.onCreate();
         mContext = new WeakReference<Context>(this.getApplication());
         // 这里实现SDK初始化
-
+        //Bmob后端云服务初始化
+        Bmob.initialize(mContext.get(), mContext.get().getString(R.string.bmobKey));
         // 初始化讯飞SDK: 将“12345678”替换成您申请的APPID，申请地址：http://www.xfyun.cn
         // 请勿在“=”与appid之间添加任何空字符或者转义符
         SpeechUtility.createUtility(mContext.get(), SpeechConstant.APPID + "=" + mContext.get().getString(R.string.APPID));

@@ -12,7 +12,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".ui.register.RegisterActivity">
 
     <ImageView
         android:id="@+id/imageView20"
@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_bg_pink_grad" />
+        app:srcCompat="@drawable/ic_bg_blue_grad" />
 
     <ImageView
         android:id="@+id/imageView21"
@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView20"
         app:layout_constraintStart_toStartOf="@+id/imageView20"
         app:layout_constraintTop_toTopOf="@+id/imageView20"
-        app:srcCompat="@drawable/bg_pink" />
+        app:srcCompat="@drawable/bg_blue" />
 
     <ImageView
         android:id="@+id/imageView22"
@@ -44,7 +44,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/imageView21"
         app:layout_constraintTop_toTopOf="@+id/imageView20"
-        app:srcCompat="@drawable/bg_pink_shadow" />
+        app:srcCompat="@drawable/bg_blue_shadow" />
 
     <ImageView
         android:id="@+id/imageView23"
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView21"
         app:layout_constraintStart_toStartOf="@+id/imageView21"
         app:layout_constraintTop_toTopOf="@+id/imageView21"
-        app:srcCompat="@drawable/login_img" />
+        app:srcCompat="@drawable/register_img" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -108,13 +108,75 @@
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
     <ImageView
-        android:id="@+id/imageView17"
+        android:id="@+id/imageView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:srcCompat="@drawable/ic_bg_input" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView14"
+        app:layout_constraintStart_toStartOf="@+id/imageView14"
+        app:layout_constraintTop_toTopOf="@+id/imageView14"
+        app:srcCompat="@drawable/ic_bg_message" />
+
+    <ImageView
+        android:id="@+id/imageView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView15"
+        app:layout_constraintEnd_toEndOf="@+id/imageView15"
+        app:layout_constraintStart_toStartOf="@+id/imageView15"
+        app:layout_constraintTop_toTopOf="@+id/imageView15"
+        app:srcCompat="@drawable/ic_message" />
+
+    <EditText
+        android:id="@+id/ver_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="#00FFFFFF"
+        android:ems="10"
+        android:hint="@string/verification"
+        android:inputType="number"
+        android:textColorHint="@color/light_gray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView14"
+        app:layout_constraintEnd_toStartOf="@+id/send_ver"
+        app:layout_constraintStart_toEndOf="@+id/imageView15"
+        app:layout_constraintTop_toTopOf="@+id/imageView14" />
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/send_ver"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="24dp"
+        android:text="@string/sendVer"
+        android:textColor="@color/color_theme_blue"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView14"
+        app:layout_constraintEnd_toEndOf="@+id/imageView14"
+        app:layout_constraintTop_toTopOf="@+id/imageView14"
+        app:qmui_borderColor="#00FFFFFF"
+        app:qmui_isRadiusAdjustBounds="true"
+        app:qmui_radius="5dp" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView14"
+        app:layout_constraintStart_toStartOf="@+id/imageView14"
+        app:layout_constraintTop_toBottomOf="@+id/imageView14"
         app:srcCompat="@drawable/ic_bg_input" />
 
     <ImageView
@@ -159,23 +221,6 @@
         app:layout_constraintStart_toEndOf="@+id/imageView19"
         app:layout_constraintTop_toTopOf="@+id/imageView17" />
 
-    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-        android:id="@+id/login"
-        android:layout_width="317.4026dp"
-        android:layout_height="53.677002dp"
-        android:layout_gravity="start"
-        android:layout_marginTop="24dp"
-        android:enabled="false"
-        android:text="@string/action_sign_in_short"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView17"
-        app:layout_constraintStart_toStartOf="@+id/imageView17"
-        app:layout_constraintTop_toBottomOf="@+id/imageView17"
-        app:qmui_backgroundColor="@color/btnBlack"
-        app:qmui_borderColor="#00FFFFFF" />
-
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="wrap_content"
@@ -192,22 +237,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
 
-    <Button
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:text="测试"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/login"
+        android:text="@string/register"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -217,106 +253,29 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_left"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/login"
-        app:layout_constraintTop_toBottomOf="@+id/login"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/lottie_right" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/register"
-        android:textColor="@color/light_gray"
-        app:layout_constraintBottom_toBottomOf="@+id/animation_left"
-        app:layout_constraintStart_toEndOf="@+id/animation_left"
-        app:layout_constraintTop_toTopOf="@+id/animation_left" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_right"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/login"
-        app:layout_constraintTop_toBottomOf="@+id/login"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintEnd_toEndOf="@+id/register"
+        app:layout_constraintTop_toBottomOf="@+id/register"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/lottie_left" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rePassword"
-        android:textColor="@color/light_gray"
-        app:layout_constraintBottom_toBottomOf="@+id/animation_right"
-        app:layout_constraintEnd_toStartOf="@+id/animation_right"
-        app:layout_constraintTop_toTopOf="@+id/animation_right" />
-
-    <com.qmuiteam.qmui.widget.QMUIFloatLayout
-        android:id="@+id/qmuidemo_floatlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:qmui_childHorizontalSpacing="40dp"
-        app:qmui_childVerticalSpacing="20dp">
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout
-            android:id="@+id/qq"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            app:qmui_backgroundColor="@color/white"
-            app:qmui_isRadiusAdjustBounds="true"
-            app:qmui_radius="50dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/imageView25"
-                    android:layout_width="20.35dp"
-                    android:layout_height="21.47dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_qq" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout>
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout
-            android:id="@+id/weixin"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            app:qmui_backgroundColor="@color/white"
-            app:qmui_isRadiusAdjustBounds="true"
-            app:qmui_radius="50dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/imageView26"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_weixin" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout>
-    </com.qmuiteam.qmui.widget.QMUIFloatLayout>
-
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/register"
+        android:layout_width="317.4026dp"
+        android:layout_height="53.677002dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="24dp"
+        android:enabled="true"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView17"
+        app:layout_constraintStart_toStartOf="@+id/imageView17"
+        app:layout_constraintTop_toBottomOf="@+id/imageView17"
+        app:qmui_backgroundColor="@color/btnBlack"
+        app:qmui_borderColor="#00FFFFFF" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

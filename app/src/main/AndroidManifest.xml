@@ -16,16 +16,23 @@
     <!-- 定位信息是敏感信息，可通过Setting.setLocationEnable(false)关闭定位请求 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 如需使用人脸识别，还要添加：摄像头权限，拍照需要用到 -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
 
     <application
         android:name=".SampleApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_icon_app_china"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.wrong.WrongActivity"></activity>
+        <!-- Bmob -->
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="com.baidu.duer.chinatalk_refactor.BmobContentProvider"></provider>
+
+        <activity android:name=".ui.register.RegisterActivity"></activity>
+        <activity android:name=".ui.wrong.WrongActivity" />
         <activity android:name=".ui.real.RealActivity" />
         <activity
             android:name=".ui.game.GameActivity"
