@@ -5,20 +5,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.baidu.duer.chinatalk_refactor.R;
-import com.baidu.duer.chinatalk_refactor.iflytek.EvaluateListener;
-import com.baidu.duer.chinatalk_refactor.iflytek.EvaluateSpeechManager;
-import com.iflytek.cloud.SpeechError;
+import com.chenenyu.router.Router;
+import com.chenenyu.router.annotation.Route;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView2;
@@ -28,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+@Route("my")
 public class MyFragment extends Fragment {
 
     private Unbinder unbinder;
@@ -71,6 +67,11 @@ public class MyFragment extends Fragment {
         mRadiusImageView.setCornerRadius(QMUIDisplayHelper.dp2px(getContext(), 50)); // 圆角弧度
         mRadiusImageView.setTouchSelectModeEnabled(false); // 是否允许点击选中
         mRadiusImageView.setCircle(false);
+    }
+
+    @OnClick(R.id.set_up)
+    public void onClick(View v) {
+        Router.build("setup").go(mContext);
     }
 
     @Override

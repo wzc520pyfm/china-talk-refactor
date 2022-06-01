@@ -18,11 +18,11 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.base.BaseActivity;
 import com.baidu.duer.chinatalk_refactor.utils.SharedUtil;
@@ -46,7 +46,7 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener 
     @BindView(R.id.password)
     EditText passwordEditText;
     @BindView(R.id.loading)
-    ProgressBar loadingProgressBar;
+    LottieAnimationView loadingView;
     @BindView(R.id.container)
     ConstraintLayout layout;
     private SharedUtil sharedUtil = SharedUtil.getInstance();
@@ -99,7 +99,7 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener 
                 if (loginResult == null) {
                     return;
                 }
-                loadingProgressBar.setVisibility(View.GONE); // 设置加载bar是否显示
+                loadingView.setVisibility(View.GONE); // 设置加载bar是否显示
                 if (loginResult.getError() != null) { // 展示出错信息
                     showLoginFailed(loginResult.getError());
                 }
@@ -152,7 +152,7 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE); // 显示加载bar
+                loadingView.setVisibility(View.VISIBLE); // 显示加载bar
                 // 执行viewModel中的登录事件
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
@@ -205,6 +205,7 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener 
             float x2 = e2.getX()-e1.getX();
             if(x > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY){
                 Log.i(TAG,"向左手势");
+                Router.build("resetPwd").anim(R.anim.right_in, R.anim.left_out).go(mContext);
             }else if(x2 > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY){
                 Log.i(TAG,"向右手势");
                 Router.build("register").anim(R.anim.left_in, R.anim.right_out).go(mContext);

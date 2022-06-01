@@ -19,6 +19,7 @@ import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeListener;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
 import com.chenenyu.router.Router;
+import com.chenenyu.router.annotation.Route;
 import com.iflytek.cloud.SpeechError;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;

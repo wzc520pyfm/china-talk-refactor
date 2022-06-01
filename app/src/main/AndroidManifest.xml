@@ -16,7 +16,7 @@
     <!-- 定位信息是敏感信息，可通过Setting.setLocationEnable(false)关闭定位请求 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 如需使用人脸识别，还要添加：摄像头权限，拍照需要用到 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".SampleApplication"
@@ -26,25 +26,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!-- Bmob -->
+        <activity android:name=".ui.setup.SetupActivity"></activity>
+        <activity android:name=".ui.reset_password.RestPasswordActivity" />
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="com.baidu.duer.chinatalk_refactor.BmobContentProvider"></provider>
+            android:authorities="com.baidu.duer.chinatalk_refactor.BmobContentProvider" /> <!-- Bmob -->
 
-        <activity android:name=".ui.register.RegisterActivity"></activity>
+        <activity android:name=".ui.register.RegisterActivity" />
         <activity android:name=".ui.wrong.WrongActivity" />
         <activity android:name=".ui.real.RealActivity" />
         <activity
             android:name=".ui.game.GameActivity"
             android:label="@string/game" />
-        <activity android:name=".ui.login.LoginActivity">
+        <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
 
         <service
             android:name=".SampleResultService"

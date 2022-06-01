@@ -1,23 +1,22 @@
 package com.baidu.duer.chinatalk_refactor.ui.register;
 
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.base.BaseActivity;
 import com.baidu.duer.chinatalk_refactor.bean.ServiceResponse;
-import com.baidu.duer.chinatalk_refactor.utils.SharedUtil;
 import com.chenenyu.router.Router;
 import com.chenenyu.router.annotation.Route;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -25,11 +24,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobSMS;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -51,9 +50,13 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
     QMUIRoundButton sendVer;
     @BindView(R.id.register)
     QMUIRoundButton register;
+    @BindView(R.id.loading)
+    LottieAnimationView loadingView;
     private GestureDetector mGestureDetector;
     private Context mContext;
 
+    @BindString(R.string.sendVer)
+    String sendVerTip;
     private static final int FLING_MIN_DISTANCE = 50;
     private static final int FLING_MIN_VELOCITY = 0;
 
@@ -68,15 +71,29 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
         mGestureDetector = new GestureDetector(this, myGestureListener);
         layout.setOnTouchListener(this);
         layout.setLongClickable(true);//必需设置这为true 否则也监听不到手势
+        sendVer.setChangeAlphaWhenDisable(true);
         // register.setChangeAlphaWhenDisable(true);
         // register.setEnabled(false);
         registerViewModel.getRegisterResult().observe(this, new Observer<ServiceResponse>() {
             @Override
             public void onChanged(ServiceResponse serviceResponse) {
-                if(serviceResponse.getCode() != 200) {
-                    showTip("出错");
-                } else {
+                loadingView.setVisibility(View.GONE);
+                showTip(serviceResponse.getMessage());
+                if(serviceResponse.getCode() == 200) {
                     backLogin();
+                }
+            }
+        });
+        registerViewModel.getCountDown().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                sendVer.setVisibility(View.VISIBLE);
+                if(!s.equals("-1")) {
+                    sendVer.setText(s);
+                    sendVer.setEnabled(false);
+                } else {
+                    sendVer.setText(sendVerTip);
+                    sendVer.setEnabled(true);
                 }
             }
         });
@@ -89,7 +106,11 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
                 sendVerCode();
                 break;
             case R.id.register:
-                verifyCode();
+                if(password.getText().toString().length() > 5 && username.getText().toString().length() == 11) {
+                    verifyCode();
+                } else {
+                    password.setError("密码长度需大于5");
+                }
                 break;
         }
     }
@@ -107,10 +128,28 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
             username.setError("手机号格式错误");
             return;
         }
+        loadingView.setVisibility(View.VISIBLE);
         BmobSMS.requestSMSCode(username.getText().toString(), "登录验证码", new QueryListener<Integer>() {
             @Override
             public void done(Integer smsId, BmobException e) {
+                loadingView.setVisibility(View.GONE);
                 if (e == null) {
+                    sendVer.animate()
+                            .alpha(0f)
+                            .setDuration(500)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    sendVer.setVisibility(View.GONE);
+                                }
+                            });
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            registerViewModel.startDownTime();
+                        }
+                    }, 500);
                     String success = String.format("发送验证码成功，短信ID：%s \n", smsId);
                     Log.d("RegActivity",success);
                     showTip(success);
@@ -127,16 +166,14 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
      * 验证验证码
      */
     private void verifyCode() {
+        loadingView.setVisibility(View.VISIBLE);
         BmobSMS.verifySmsCode(username.getText().toString(), verCode.getText().toString(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
+                loadingView.setVisibility(View.GONE);
                 if (e == null) {
-                    if(password.getText().toString().length() > 5 && username.getText().toString().length() == 11) {
-                        showTip("验证码通过");
-                        register();
-                    } else {
-                        password.setError("密码长度需大于5");
-                    }
+                    showTip("验证码通过");
+                    register();
                 } else {
                     showTip("验证码验证失败：" + e.getErrorCode() + "-" + e.getMessage() + "\n");
                 }
@@ -148,6 +185,7 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
      * 注册
      */
     private void register() {
+        loadingView.setVisibility(View.VISIBLE);
         registerViewModel.register(username.getText().toString(), password.getText().toString());
     }
 

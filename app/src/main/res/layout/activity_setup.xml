@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.setup.SetupActivity">
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/login_out_btn"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="48dp"
+        android:text="@string/login_out"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:qmui_backgroundColor="@color/color_theme_error"
+        app:qmui_borderColor="#00FFFFFF"
+        app:qmui_isRadiusAdjustBounds="true"
+        app:qmui_radius="10dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

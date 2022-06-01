@@ -1,5 +1,7 @@
 package com.baidu.duer.chinatalk_refactor.ui.register;
 
+import android.os.CountDownTimer;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -20,8 +22,28 @@ import io.reactivex.schedulers.Schedulers;
 public class RegisterViewModel extends ViewModel {
 
     private SharedUtil sharedUtil = SharedUtil.getInstance();
+    // 验证码发送时间倒计时
+    private MutableLiveData<String> countDown = new MutableLiveData<>();
+    // 倒计时
+    private CountDownTimer countDownTimer;
     // 注册结果
     private MutableLiveData<ServiceResponse> registerResult = new MutableLiveData<>();
+
+    public RegisterViewModel() {
+        countDown.setValue("-1");
+        countDownTimer = new CountDownTimer(60 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String value = String.valueOf((int) (millisUntilFinished / 1000));
+                countDown.setValue(value);
+            }
+
+            @Override
+            public void onFinish() {
+                countDown.setValue("-1");
+            }
+        };
+    }
 
     /**
      * 注册
@@ -59,7 +81,18 @@ public class RegisterViewModel extends ViewModel {
                 });
     }
 
+    /**
+     * 开始倒计时
+     */
+    public void startDownTime() {
+        countDownTimer.start();
+    }
+
     public LiveData<ServiceResponse> getRegisterResult() {
         return registerResult;
+    }
+
+    public LiveData<String> getCountDown() {
+        return countDown;
     }
 }

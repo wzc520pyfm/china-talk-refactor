@@ -14,47 +14,60 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".ui.login.LoginActivity">
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/imageView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_bg_pink_grad" />
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/lottie_people_flating" />
 
-    <ImageView
-        android:id="@+id/imageView21"
-        android:layout_width="260dp"
-        android:layout_height="278dp"
-        android:layout_marginTop="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView20"
-        app:layout_constraintEnd_toEndOf="@+id/imageView20"
-        app:layout_constraintStart_toStartOf="@+id/imageView20"
-        app:layout_constraintTop_toTopOf="@+id/imageView20"
-        app:srcCompat="@drawable/bg_pink" />
+<!--    这是原本的插图-->
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView20"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_bg_pink_grad" />-->
 
-    <ImageView
-        android:id="@+id/imageView22"
-        android:layout_width="260dp"
-        android:layout_height="172dp"
-        android:layout_marginTop="104dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView21"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView21"
-        app:layout_constraintTop_toTopOf="@+id/imageView20"
-        app:srcCompat="@drawable/bg_pink_shadow" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView21"-->
+<!--        android:layout_width="260dp"-->
+<!--        android:layout_height="278dp"-->
+<!--        android:layout_marginTop="48dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/imageView20"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/imageView20"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/imageView20"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/imageView20"-->
+<!--        app:srcCompat="@drawable/bg_pink" />-->
 
-    <ImageView
-        android:id="@+id/imageView23"
-        android:layout_width="286dp"
-        android:layout_height="286dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView20"
-        app:layout_constraintEnd_toEndOf="@+id/imageView21"
-        app:layout_constraintStart_toStartOf="@+id/imageView21"
-        app:layout_constraintTop_toTopOf="@+id/imageView21"
-        app:srcCompat="@drawable/login_img" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView22"-->
+<!--        android:layout_width="260dp"-->
+<!--        android:layout_height="172dp"-->
+<!--        android:layout_marginTop="104dp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/imageView21"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/imageView21"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/imageView20"-->
+<!--        app:srcCompat="@drawable/bg_pink_shadow" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView23"-->
+<!--        android:layout_width="286dp"-->
+<!--        android:layout_height="286dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/imageView20"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/imageView21"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/imageView21"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/imageView21"-->
+<!--        app:srcCompat="@drawable/login_img" />-->
 
     <ImageView
         android:id="@+id/imageView2"
@@ -176,21 +189,21 @@
         app:qmui_backgroundColor="@color/btnBlack"
         app:qmui_borderColor="#00FFFFFF" />
 
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="64dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/password"
-        app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+<!--    <ProgressBar-->
+<!--        android:id="@+id/loading"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginTop="64dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        android:layout_marginBottom="64dp"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/password"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/password"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.3" />-->
 
     <Button
         android:id="@+id/test"
@@ -318,5 +331,19 @@
         </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout>
     </com.qmuiteam.qmui.widget.QMUIFloatLayout>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.39"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/lottie_loading"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@
     <color name="light_gray">#9395A4</color>
 
     <color name="color_theme_blue">#5C81EC</color>
+    <color name="color_theme_error">#FD4848</color>
 
 <!--    QMUICommon-->
     <color name="app_color_blue">#00A8E1</color>

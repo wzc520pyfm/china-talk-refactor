@@ -6,12 +6,14 @@
     <string name="fapp">chinaTalkAndroid</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="resetPwd">ResetPwd</string>
     <string name="rePassword">Retrieve password</string>
     <string name="sendVer">Send Code</string>
     <string name="phone">Phone</string>
     <string name="verification">Verification</string>
     <string name="verificationTip">Enter Verification</string>
     <string name="password">Password</string>
+    <string name="newPwd">New Password</string>
     <string name="title_home">HOME</string>
     <string name="title_exam">EXAM</string>
     <string name="title_my">MY</string>
@@ -29,6 +31,7 @@
     <string name="sign_out">Sign out</string>
     <string name="skip">Skip</string>
     <string name="submit">Submit</string>
+    <string name="login_out">Login Out</string>
     <string name="game">Gout spoken</string>
     <string name="determine">determine</string>
     <string name="voice_input">语音输入</string>

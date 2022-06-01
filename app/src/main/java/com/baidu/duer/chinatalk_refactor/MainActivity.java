@@ -22,6 +22,8 @@ import com.airbnb.lottie.LottieDrawable;
 import com.airbnb.lottie.LottieImageAsset;
 import com.baidu.duer.chinatalk_refactor.base.BaseActivity;
 import com.baidu.duer.chinatalk_refactor.base.BaseData;
+import com.baidu.duer.chinatalk_refactor.utils.SharedUtil;
+import com.chenenyu.router.Router;
 import com.chenenyu.router.annotation.Route;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -57,6 +59,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -66,17 +69,20 @@ import butterknife.ButterKnife;
 @Route("home")
 public class MainActivity extends BaseActivity {
 
-    private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk";
-    private Context mContext;
     @BindView(R.id.topbar)
     QMUITopBarLayout mTopBar;
-    private QMUIPopup languagePopup;
     @BindView(R.id.nav_view)
     BottomNavigationView navView;
+    @BindArray(R.array.languages)
+    String [] languages;
+    private QMUIPopup languagePopup;
     /**
      * 记录上一次被激活的navItem
      */
     private Integer actived = 0;
+    private SharedUtil sharedUtil = SharedUtil.getInstance();
+    private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk";
+    private Context mContext;
 
     @SuppressLint("CheckResult")
     @Override
@@ -102,6 +108,9 @@ public class MainActivity extends BaseActivity {
                     }
                 });
         QMUIStatusBarHelper.translucent(this);
+        if(sharedUtil.readShared("token", "").equals("")) {
+            Router.build("login").go(this);
+        }
         initTopBar();
         initNavBar();
     }
@@ -186,16 +195,14 @@ public class MainActivity extends BaseActivity {
      * 显示切换语言列表
      */
     void showSelectLanguage(View v) {
-        String[] listItems = getResources().getStringArray(R.array.languages);
         List<String> data = new ArrayList<>();
-
-        Collections.addAll(data, listItems);
+        Collections.addAll(data, languages);
 
         ArrayAdapter adapter = new ArrayAdapter<>(mContext, R.layout.simple_list_item, data);
         AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(mContext, listItems[i], Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, languages[i], Toast.LENGTH_SHORT).show();
                 if (languagePopup != null) {
                     languagePopup.dismiss();
                 }
