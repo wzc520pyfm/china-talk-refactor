@@ -12,6 +12,7 @@ import com.baidu.duer.chinatalk_refactor.bean.Result;
 import com.baidu.duer.chinatalk_refactor.bean.ServiceResponse;
 import com.baidu.duer.chinatalk_refactor.bean.user.LoginData;
 import com.baidu.duer.chinatalk_refactor.bean.user.LoggedInUser;
+import com.baidu.duer.chinatalk_refactor.http.Http;
 import com.baidu.duer.chinatalk_refactor.http.RetrofitClient;
 import com.baidu.duer.chinatalk_refactor.utils.SharedUtil;
 
@@ -22,6 +23,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.http.HTTP;
 
 
 public class LoginViewModel extends ViewModel {
@@ -45,22 +47,25 @@ public class LoginViewModel extends ViewModel {
         Observable<ServiceResponse<LoggedInUser>> observable = new RetrofitClient.Builder().build().create(LoginService.class).login(new LoginData(username, password));
         observable.subscribeOn(Schedulers.io()) // 发送事件的线程: io操作的线程
                 .observeOn(AndroidSchedulers.mainThread()) // 接收事件的线程: Android的主线程
-                .subscribe(new Observer<ServiceResponse<LoggedInUser>>() {
+                .subscribe(new Observer<ServiceResponse<LoggedInUser>>() { // TODO 当返回的数据不是成功时的数据时,不会执行下面的回调函数,待解决
                     @Override
                     public void onSubscribe(Disposable d) { }
                     @Override
                     public void onNext(ServiceResponse<LoggedInUser> arrayListServiceResponse) {
-                        if(arrayListServiceResponse.getData().getToken() != null) {
-                            Result<LoggedInUser> loggedInUser = new Result.Success<>(arrayListServiceResponse.getData());
-                            if (loggedInUser instanceof Result.Success) { // 如果登录结果信息是success
-                                LoggedInUser data = ((Result.Success<LoggedInUser>) loggedInUser).getData(); // 取出user信息
-                                sharedUtil.writeShared("token", "Bearer " + data.getToken()); // 存储token
-                                sharedUtil.writeShared("user_phone", username);
-                                sharedUtil.writeShared("password", password);
-                                loginResult.setValue(new LoginResult(new LoggedInUserView(data.getToken()))); // 从取出的信息中再取出向UI公开的数据项
-                            } else {
-                                loginResult.setValue(new LoginResult(R.string.login_failed));
-                            }
+                        Result<LoggedInUser> loggedInUser;
+                        if(arrayListServiceResponse.getCode() == Http.SUCCESS) {
+                            loggedInUser = new Result.Success<>(arrayListServiceResponse.getData());
+                        } else {
+                            loggedInUser = new Result.Error(new Exception(arrayListServiceResponse.getMessage()));
+                        }
+                        if (loggedInUser instanceof Result.Success) { // 如果登录结果信息是success
+                            LoggedInUser data = ((Result.Success<LoggedInUser>) loggedInUser).getData(); // 取出user信息
+                            sharedUtil.writeShared("token", "Bearer " + data.getToken()); // 存储token
+                            sharedUtil.writeShared("user_phone", username);
+                            sharedUtil.writeShared("password", password);
+                            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getToken()))); // 从取出的信息中再取出向UI公开的数据项
+                        } else {
+                            loginResult.setValue(new LoginResult(R.string.login_failed));
                         }
                     }
                     @Override
@@ -83,14 +88,13 @@ public class LoginViewModel extends ViewModel {
 
     // A placeholder username validation check. 检查username
     private boolean isUserNameValid(String username) {
-        if (username == null) {
+        if (username.trim().isEmpty()) {
             return false;
         }
-        if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-        } else {
-            return !username.trim().isEmpty();
+        if (username.length() == 11) {
+            return Patterns.PHONE.matcher(username).matches();
         }
+        return false;
     }
 
     // A placeholder password validation check. 检查password
