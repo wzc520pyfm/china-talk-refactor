@@ -8,6 +8,62 @@ Chinatalk是一个提供给汉语学习者的安卓app, 主要提供多样化的
 
 <img src="README.assets/Screenshot_20220710_211029_com.baidu.duer.chinata.jpg" alt="Screenshot_20220710_211029_com.baidu.duer.chinata" style="width:20%;height:20%;" /><img src="README.assets/Screenshot_20220710_211034_com.baidu.duer.chinata.jpg" alt="Screenshot_20220710_211034_com.baidu.duer.chinata" style="width:20%;height:20%;" /><img src="README.assets/Screenshot_20220710_211038_com.baidu.duer.chinata.jpg" alt="Screenshot_20220710_211038_com.baidu.duer.chinata" style="width:20%;height:20%;" /><img src="README.assets/Screenshot_20220710_211128_com.baidu.duer.chinata.jpg" alt="Screenshot_20220710_211128_com.baidu.duer.chinata" style="width:20%;height:20%;" /><img src="README.assets/Screenshot_20220710_211152_com.baidu.duer.chinata.jpg" alt="Screenshot_20220710_211152_com.baidu.duer.chinata" style="width:20%;height:20%;" /><img src="README.assets/Screenshot_20220710_211200_com.baidu.duer.chinata.jpg" alt="Screenshot_20220710_211200_com.baidu.duer.chinata" style="width:20%;height:20%;" /><img src="README.assets/Screenshot_20220710_211216_com.baidu.duer.chinata.jpg" alt="Screenshot_20220710_211216_com.baidu.duer.chinata" style="width:20%;height:20%;" />
 
+### 使用讯飞语音听写
+
+项目封装了讯飞语音听写、合成、评测三个功能，调用方式简洁，以语音听写为例：
+
+1. 实现接口RecognizeListener，接口提供三个回调函数用于接收听写结果。
+
+   ```java
+   public class HomeFragment extends Fragment implements RecognizeListener {
+       @Override
+       public void onNewResult(String result) {
+           homeViewModel.setRecognizeText(homeViewModel.getRecognizeText().getValue() + "最新听写结果：" + result + "\n");
+       }
+   
+       @Override
+       public void onTotalResult(String result, boolean isLast) {
+           homeViewModel.setRecognizeText(homeViewModel.getRecognizeText().getValue() + "所有听写结果：" + result + "\n");
+       }
+   
+       @Override
+       public void onError(SpeechError speechError) {
+           Toast.makeText(mContext, "出错了 " + speechError, Toast.LENGTH_SHORT).show();
+       }
+   }
+   ```
+
+2. 在createView中初始化讯飞音频读写管理类
+
+   ```java
+   public View onCreateView(@NonNull LayoutInflater inflater,
+                                ViewGroup container, Bundle savedInstanceState) {
+       //初始化讯飞音频读写管理类
+           RecognizeSpeechManager.instance().init(mContext);
+           RecognizeSpeechManager.instance().setRecognizeListener(this);
+   }
+   ```
+
+3. 在任意位置调用音频读写管理类的开始/暂时函数
+
+   ```java
+   public void onClick(View v) {
+           switch (v.getId()){
+               case R.id.btStart:
+                   RecognizeSpeechManager.instance().startRecognize();
+                   break;
+               case R.id.btCancel:
+                   RecognizeSpeechManager.instance().cancelRecognize();
+                   break;
+               case R.id.btStop:
+                   RecognizeSpeechManager.instance().stopRecognize();
+                   break;
+           }
+       }
+   ```
+
+   
+
 ### 调取网络接口
 
 使用retrofit作为网络请求框架, 以exam接口为例: 
