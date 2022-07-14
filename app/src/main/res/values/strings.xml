@@ -15,6 +15,7 @@
     <string name="password">Password</string>
     <string name="newPwd">New Password</string>
     <string name="title_home">HOME</string>
+    <string name="changeLang">切换语言</string>
     <string name="title_exam">EXAM</string>
     <string name="title_my">MY</string>
     <string name="title_activity_login">LoginActivity</string>
@@ -37,6 +38,7 @@
     <string name="voice_input">语音输入</string>
     <string name="speak_start_tip">长按说话</string>
     <string name="gameTitle">看图识物</string>
+    <string name="answer_result">答题结果</string>
     <string name="editTip">请输入你的答案</string>
     <string name="game_warm_tip">温馨提示：您可点击右侧语音输入，录入的语音将实时转成文字，可选择删除或重录</string>
     <string name="answer_true">回答正确！</string>
@@ -74,5 +76,14 @@
         <item>中文</item>
         <item>塞尔维亚文</item>
         <item>罗马尼亚文</item>
+        <item>法文</item>
+    </string-array>
+
+    <string-array name="lang">
+        <item>en</item>
+        <item>ch</item>
+        <item>sr-rRS</item>
+        <item>ro-rRO</item>
+        <item>fr-rFR</item>
     </string-array>
 </resources>

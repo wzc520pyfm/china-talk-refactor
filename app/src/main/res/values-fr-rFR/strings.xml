@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ChinaTalk</string>
+    <string name="APPID">ed682c4fb960a4594fa6db2a322bcfe8</string>
+    <string name="bmobKey">ed682c4fb960a4594fa6db2a322bcfe8</string>
+    <string name="baseUrl">https://wzctest.wzc520pyf.cn/chinaTalkNest/api/v1/</string>
+    <string name="fapp">chinaTalkAndroid</string>
+    <string name="login">se connecter</string>
+    <string name="register">s\'inscrire</string>
+    <string name="resetPwd">Récupérer votre mot de passe</string>
+    <string name="rePassword">Réinitialiser votre mot de passe</string>
+    <string name="sendVer">Envoyer un code de vérification</string>
+    <string name="phone">Numéro de téléphone</string>
+    <string name="verification">Code de vérification</string>
+    <string name="verificationTip">Veuillez saisir le code de vérification</string>
+    <string name="password">mots de passe</string>
+    <string name="newPwd">Nouveau mot de passe</string>
+    <string name="title_home">Domicile</string>
+    <string name="changeLang">changer de langue</string>
+    <string name="title_exam">un examen</string>
+    <string name="title_my">mien</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">boîte aux lettres</string>
+    <string name="prompt_password">mots de passe</string>
+    <string name="action_sign_in">Se connecter ou s\'inscrire</string>
+    <string name="action_sign_in_short">se connecter</string>
+    <string name="loading">Chargement...</string>
+    <string name="welcome">Bienvenue !</string>
+    <string name="invalid_username">Noms d\'utilisateur non autorisés</string>
+    <string name="invalid_password">Le mot de passe doit comporter plus de 5 caractères</string>
+    <string name="login_failed">Échec de la connexion</string>
+    <string name="failed">Erreur inattendue « échec ».</string>
+    <string name="sign_out">Se déconnecter</string>
+    <string name="skip">suggestion</string>
+    <string name="submit">soumettre</string>
+    <string name="login_out">Quitter la connexion</string>
+    <string name="game">Test amusant</string>
+    <string name="determine">déterminer</string>
+    <string name="voice_input">Entrée vocale</string>
+    <string name="speak_start_tip">Appuyez longuement pour parler</string>
+    <string name="gameTitle">Regardez l\'image pour identifier les choses</string>
+    <string name="answer_result">résultat de la réponse</string>
+    <string name="editTip">Veuillez entrer votre réponse</string>
+    <string name="game_warm_tip">Conseils: Vous pouvez cliquer sur l\'entrée vocale à droite, et la voix saisie sera convertie en texte en temps réel, et vous pouvez choisir de supprimer ou de réenregistrer</string>
+    <string name="answer_true">Réponse correcte!</string>
+    <string name="answer_tip">Prompt:</string>
+    <string name="explain">Paraphrase:</string>
+    <string name="go_next">Passer au niveau supérieur!!!</string>
+    <string name="answer_false">Mauvaise réponse, s\'il vous plaît répondre à nouveau!</string>
+    <string name="search_query">Recherche vocale</string>
+    <string name="learning_record">Dossiers d\'apprentissage</string>
+    <string name="taste_test">Test amusant</string>
+    <string name="my_wrong_topic">Autant pour moi</string>
+    <string name="learning_time_today">Temps d\'étude aujourd\'hui</string>
+    <string name="min">minimum</string>
+    <string name="learning_days">Nombre total de jours d\'études</string>
+    <string name="day">" jour"</string>
+    <string name="voice_helper_tips">Cliquez sur J\'entre dans l\'assistant vocal</string>
+    <string name="total_questions">Nombre total de questions :</string>
+    <string name="highest_score">Score le plus élevé :</string>
+    <string name="exam_time">Durée du test :</string>
+    <string name="wrong_source">Source de l\'erreur :</string>
+    <string name="right_answer">Réponse correcte :</string>
+    <string name="start_test">Commencer le quiz</string>
+    <string name="nest_question">Question suivante</string>
+    <string name="on_topic">suggestion</string>
+    <string name="notice">#note#</string>
+    <string name="modify">rajuster</string>
+    <string name="school">École:</string>
+    <string name="birthday">Anniversaire:</string>
+    <string name="profession">Spécialisé:</string>
+    <string name="my_collection">Mes favoris</string>
+    <string name="set_up">instituer</string>
+
+    <string-array name="languages">
+        <item>anglais</item>
+        <item>chinois</item>
+        <item>Serbe</item>
+        <item>Roumain</item>
+        <item>Français</item>
+    </string-array>
+</resources>

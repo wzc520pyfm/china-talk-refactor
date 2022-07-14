@@ -87,6 +87,8 @@
 
         <!-- 透明状态栏 -->
         <item name="android:windowTranslucentStatus">true</item>
+        <!--禁用窗口的预览动画, 若不禁用, 在切换语言时会出现闪屏, 未找到更好的解决办法(此方法带来的问题是点击图标启动app会有延迟感)-->
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="AppTheme.Launcher">

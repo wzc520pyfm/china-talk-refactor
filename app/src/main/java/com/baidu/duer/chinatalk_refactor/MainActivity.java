@@ -22,6 +22,7 @@ import com.airbnb.lottie.LottieDrawable;
 import com.airbnb.lottie.LottieImageAsset;
 import com.baidu.duer.chinatalk_refactor.base.BaseActivity;
 import com.baidu.duer.chinatalk_refactor.base.BaseData;
+import com.baidu.duer.chinatalk_refactor.utils.LanguageUtil;
 import com.baidu.duer.chinatalk_refactor.utils.SharedUtil;
 import com.chenenyu.router.Router;
 import com.chenenyu.router.annotation.Route;
@@ -47,6 +48,7 @@ import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RawRes;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -60,6 +62,7 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindArray;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -73,9 +76,14 @@ public class MainActivity extends BaseActivity {
     QMUITopBarLayout mTopBar;
     @BindView(R.id.nav_view)
     BottomNavigationView navView;
+    @BindString(R.string.changeLang)
+    String changeLangText;
     @BindArray(R.array.languages)
     String [] languages;
+    @BindArray(R.array.lang)
+    String [] lang;
     private QMUIPopup languagePopup;
+    private static boolean ISFIRST = true;
     /**
      * 记录上一次被激活的navItem
      */
@@ -91,6 +99,11 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         mContext = this;
         ButterKnife.bind(this);
+
+        if (ISFIRST) { // 执行一次语言初始化
+            ISFIRST = false;
+            resetLanguage(sharedUtil.readShared("language", "en"));
+        }
 
         final RxPermissions rxPermissions = new RxPermissions(this); // where this is an Activity or Fragment instance
         // 动态请求文件权限--文件读写权限,麦克风权限
@@ -159,7 +172,7 @@ public class MainActivity extends BaseActivity {
         // mTopBar.setTitleGravity(Gravity.LEFT); // 左对齐
         mTopBar.setTitle(R.string.title_home);
         mTopBar.setBorderColor(getColor(R.color.color_theme_blue));
-        mTopBar.addRightTextButton("切换语言", QMUIViewHelper.generateViewId())
+        mTopBar.addRightTextButton(changeLangText, QMUIViewHelper.generateViewId())
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -203,6 +216,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(mContext, languages[i], Toast.LENGTH_SHORT).show();
+                resetLanguage(lang[i]);
                 if (languagePopup != null) {
                     languagePopup.dismiss();
                 }
@@ -248,6 +262,16 @@ public class MainActivity extends BaseActivity {
         lottieDrawable.setSpeed(speed);
         lottieDrawable.setMinAndMaxFrame(min, max);
         lottieDrawable.start();
+    }
+
+    /**
+     * 保存设置的语言
+     */
+    private void resetLanguage(String language){
+        //设置的语言、重启的类一般为应用主入口（微信也是到首页）
+        LanguageUtil.changeAppLanguage(this, language, MainActivity.class);
+        //保存设置的语言
+        sharedUtil.writeShared("language", language);
     }
 
     /**

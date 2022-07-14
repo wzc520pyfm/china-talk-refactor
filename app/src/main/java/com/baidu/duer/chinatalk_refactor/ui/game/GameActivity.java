@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.animation.CardTransformer;
+import com.baidu.duer.chinatalk_refactor.base.BaseActivity;
 import com.baidu.duer.chinatalk_refactor.bean.game.Game;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeListener;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
@@ -45,7 +46,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route("game")
-public class GameActivity extends AppCompatActivity implements RecognizeListener, SynthesizeListener {
+public class GameActivity extends BaseActivity implements RecognizeListener, SynthesizeListener {
 
     @BindView(R.id.pager)
     QMUIViewPager mViewPager;
