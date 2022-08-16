@@ -1,5 +1,7 @@
 Chinatalk是一个提供给汉语学习者的安卓app, 主要提供多样化的答题功能，它通过集成了语音交互促进用户口语锻炼。
 
+您可以在此下载体验的apk包： http://download.wzc520pyf.cn/chinatalk
+
 目前安卓端主要使用的技术栈有：Jetpack（ViewModel、Navigation）、用于动态申请权限的RxPermissions、异步框架RxJava2、UI库QMUI、代码简化butterknife、网络请求库retrofit、动画框架lottie、文件下载框架Aria、图片加载框架Glide、Bmob云短信服务、讯飞语音听写、讯飞语音合成、讯飞语音评测等。
 
 服务端采用Nest进行开发，使用mysql数据库。
