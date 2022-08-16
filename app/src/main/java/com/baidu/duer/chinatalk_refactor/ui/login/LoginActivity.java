@@ -30,6 +30,7 @@ import com.chenenyu.router.Router;
 import com.chenenyu.router.annotation.Route;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -52,6 +53,11 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener 
     private SharedUtil sharedUtil = SharedUtil.getInstance();
     private GestureDetector mGestureDetector;
     private Context mContext;
+
+    @BindString(R.string.default_phone)
+    String defaultPhone;
+    @BindString(R.string.default_pwd)
+    String defaultPwd;
 
     private static final int FLING_MIN_DISTANCE = 50;
     private static final int FLING_MIN_VELOCITY = 0;
@@ -159,8 +165,8 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener 
             }
         });
         // 填充上次登录/注册的账号信息
-        String username = sharedUtil.readShared("user_phone", "");
-        String password = sharedUtil.readShared("password", "");
+        String username = sharedUtil.readShared("user_phone", defaultPhone);
+        String password = sharedUtil.readShared("password", defaultPwd);
         if(!username.equals("") && !password.equals("")) {
             usernameEditText.setText(username);
             passwordEditText.setText(password);
