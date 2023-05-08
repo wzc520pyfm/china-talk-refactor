@@ -1,8 +1,6 @@
-package com.baidu.duer.chinatalk_refactor.ui.game;
+package com.baidu.duer.chinatalk_refactor.ui.spoken_game;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,22 +11,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
-import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeListener;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
-import com.baidu.duer.chinatalk_refactor.ui.home.HomeViewModel;
-import com.iflytek.cloud.SpeechError;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView2;
 
 import com.baidu.duer.chinatalk_refactor.R;
 
-import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,7 +24,7 @@ import butterknife.OnLongClick;
 import butterknife.OnTouch;
 import butterknife.Unbinder;
 
-public class GameFragment extends FrameLayout {
+public class SpokenGameFragment extends FrameLayout {
     private View root;
     private Unbinder unbinder;
 
@@ -49,11 +37,11 @@ public class GameFragment extends FrameLayout {
 
     Context mContext;
 
-    public GameFragment(Context context) {
+    public SpokenGameFragment(Context context) {
         super(context);
         this.mContext = context;
 
-        root = LayoutInflater.from(context).inflate(R.layout.fragment_game,null);
+        root = LayoutInflater.from(context).inflate(R.layout.fragment_spoken_game,null);
         int width = QMUIDisplayHelper.dp2px(context, 400);
         int height = QMUIDisplayHelper.dp2px(context, 800);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(width, height);

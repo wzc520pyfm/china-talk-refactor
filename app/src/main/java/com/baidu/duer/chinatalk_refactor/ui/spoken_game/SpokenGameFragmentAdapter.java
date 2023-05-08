@@ -1,4 +1,4 @@
-package com.baidu.duer.chinatalk_refactor.ui.game;
+package com.baidu.duer.chinatalk_refactor.ui.spoken_game;
 
 import android.content.Context;
 import android.view.View;
@@ -7,22 +7,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.baidu.duer.chinatalk_refactor.bean.game.Game;
-import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeListener;
-import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
-import com.iflytek.cloud.SpeechError;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
 
 import java.util.ArrayList;
-import com.baidu.duer.chinatalk_refactor.R;
 
-public class GameFragmentAdapter extends QMUIPagerAdapter {
+public class SpokenGameFragmentAdapter extends QMUIPagerAdapter {
 
     private ArrayList<Game> gamesList;
     private Context context;
     // 记录fragment的数组
-    private ArrayList<GameFragment> fragments = new ArrayList<>();
+    private ArrayList<SpokenGameFragment> fragments = new ArrayList<>();
 
-    public GameFragmentAdapter(Context context, ArrayList<Game> gamesList) {
+    public SpokenGameFragmentAdapter(Context context, ArrayList<Game> gamesList) {
         super();
         this.context = context;
         this.gamesList = gamesList;
@@ -32,12 +28,12 @@ public class GameFragmentAdapter extends QMUIPagerAdapter {
     @NonNull
     @Override
     protected Object hydrate(@NonNull ViewGroup container, int position) {
-        return new GameFragment(context);
+        return new SpokenGameFragment(context);
     }
 
     @Override
     protected void populate(@NonNull ViewGroup container, @NonNull Object item, int position) {
-        GameFragment gameView = (GameFragment) item;
+        SpokenGameFragment gameView = (SpokenGameFragment) item;
         gameView.setImageResource(gamesList.get(position).getImgResource());
         container.addView(gameView);
         fragments.add(gameView);

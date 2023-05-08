@@ -26,20 +26,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.setup.SetupActivity"></activity>
+        <activity android:name=".ui.setup.SetupActivity" />
         <activity android:name=".ui.reset_password.RestPasswordActivity" />
+
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.baidu.duer.chinatalk_refactor.BmobContentProvider" /> <!-- Bmob -->
-
         <activity android:name=".ui.register.RegisterActivity" />
         <activity android:name=".ui.wrong.WrongActivity" />
         <activity android:name=".ui.real.RealActivity" />
         <activity
-            android:name=".ui.game.GameActivity"
+            android:name=".ui.spoken_game.SpokenGameActivity"
             android:label="@string/game" />
         <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

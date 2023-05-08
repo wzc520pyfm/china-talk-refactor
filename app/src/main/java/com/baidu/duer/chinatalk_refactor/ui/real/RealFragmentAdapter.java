@@ -6,19 +6,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
-import com.baidu.duer.chinatalk_refactor.api.QuestionService;
-import com.baidu.duer.chinatalk_refactor.bean.ServiceResponse;
 import com.baidu.duer.chinatalk_refactor.bean.exam.Score;
-import com.baidu.duer.chinatalk_refactor.bean.question.GettedQuestion;
-import com.baidu.duer.chinatalk_refactor.http.RetrofitClient;
-import com.baidu.duer.chinatalk_refactor.ui.game.GameFragment;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class RealFragmentAdapter extends QMUIPagerAdapter {
     private ArrayList<Score> scorePaper;

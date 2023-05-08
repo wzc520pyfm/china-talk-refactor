@@ -15,7 +15,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.game.GameActivity">
+            tools:context=".ui.spoken_game.SpokenGameActivity">
 
 
             <com.qmuiteam.qmui.widget.QMUIViewPager

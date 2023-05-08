@@ -1,7 +1,6 @@
-package com.baidu.duer.chinatalk_refactor.ui.game;
+package com.baidu.duer.chinatalk_refactor.ui.spoken_game;
 
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.ViewPager;
 
@@ -14,7 +13,6 @@ import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
 import com.baidu.duer.chinatalk_refactor.iflytek.SynthesizeListener;
 import com.baidu.duer.chinatalk_refactor.iflytek.SynthesizeSpeechManager;
 import com.baidu.duer.chinatalk_refactor.utils.StringUtils;
-import com.chenenyu.router.Router;
 import com.chenenyu.router.annotation.Route;
 import com.iflytek.cloud.SpeechError;
 import com.qmuiteam.qmui.skin.QMUISkinHelper;
@@ -28,12 +26,10 @@ import com.qmuiteam.qmui.widget.QMUIViewPager;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
 import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -46,7 +42,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @Route("game")
-public class GameActivity extends BaseActivity implements RecognizeListener, SynthesizeListener {
+public class SpokenGameActivity extends BaseActivity implements RecognizeListener, SynthesizeListener {
 
     @BindView(R.id.pager)
     QMUIViewPager mViewPager;
@@ -56,7 +52,7 @@ public class GameActivity extends BaseActivity implements RecognizeListener, Syn
     private QMUIPopup mNormalPopup;
     // 记录当前pager的index
     private int mCurrentPosition;
-    GameFragmentAdapter pagerAdapter;
+    SpokenGameFragmentAdapter pagerAdapter;
 
     public Context mContext;
 
@@ -65,7 +61,7 @@ public class GameActivity extends BaseActivity implements RecognizeListener, Syn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_spoken_game);
         ButterKnife.bind(this);
         mContext = this;
         initTopBar();
@@ -130,7 +126,7 @@ public class GameActivity extends BaseActivity implements RecognizeListener, Syn
     }
 
     private void initPagers() {
-        pagerAdapter = new GameFragmentAdapter(mContext, gamesList);
+        pagerAdapter = new SpokenGameFragmentAdapter(mContext, gamesList);
         //setPageTransformer默认采用ViewCompat.LAYER_TYPE_HARDWARE， 但它在某些4.x的国产机下会crash
         boolean canUseHardware = Build.VERSION.SDK_INT >= 21;
         mViewPager.setPageTransformer(false, new CardTransformer(),
