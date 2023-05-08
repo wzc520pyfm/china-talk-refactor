@@ -70,6 +70,11 @@
     <string name="profession">专业：</string>
     <string name="my_collection">My collection</string>
     <string name="set_up">Set up</string>
+    <string name="interesting_spoken">Interesting Spoken</string>
+    <string name="interesting_words">Interesting Words</string>
+    <string name="interesting_video">Interesting Video</string>
+    <string name="default_phone">17816134129</string>
+    <string name="default_pwd">123456</string>
 
     <string-array name="languages">
         <item>英文</item>

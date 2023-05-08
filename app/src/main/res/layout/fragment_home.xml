@@ -162,7 +162,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/textView13" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/game_pin_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -176,7 +176,7 @@
                 app:layout_constraintTop_toTopOf="@+id/view" />
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/video_game_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -185,8 +185,8 @@
                 android:textColor="@color/blackWord"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/view"
-                app:layout_constraintEnd_toEndOf="@+id/textView15"
-                app:layout_constraintTop_toBottomOf="@+id/textView15" />
+                app:layout_constraintEnd_toEndOf="@+id/game_pin_text"
+                app:layout_constraintTop_toBottomOf="@+id/game_pin_text" />
 
             <TextView
                 android:id="@+id/learn_days"
@@ -197,8 +197,8 @@
                 android:textColor="@color/blackWord"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView16"
-                app:layout_constraintEnd_toStartOf="@+id/textView16" />
+                app:layout_constraintBottom_toBottomOf="@+id/video_game_text"
+                app:layout_constraintEnd_toStartOf="@+id/video_game_text" />
 
             <View
                 android:id="@+id/view"
@@ -222,7 +222,7 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@+id/study_plain"
-        app:layout_constraintTop_toTopOf="@+id/taste_test"
+        app:layout_constraintTop_toTopOf="@+id/game_spoken"
         app:qmui_borderColor="?attr/qmui_skin_support_color_separator"
         app:qmui_outerNormalColor="?attr/qmui_skin_support_color_background"
         app:qmui_showBorderOnlyBeforeL="true">
@@ -303,7 +303,7 @@
         app:layout_constraintTop_toBottomOf="@+id/search_input" />
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout
-        android:id="@+id/taste_test"
+        android:id="@+id/game_spoken"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"

@@ -6,25 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.baidu.duer.chinatalk_refactor.R;
-import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeListener;
-import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
 import com.chenenyu.router.Router;
-import com.chenenyu.router.annotation.Route;
-import com.iflytek.cloud.SpeechError;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
-import com.qmuiteam.qmui.util.QMUIViewHelper;
-import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,9 +71,9 @@ public class HomeFragment extends Fragment {
     public void onClick1() {
         Router.build("wrong").go(this);
     }
-    @OnClick(R.id.taste_test)
+    @OnClick(R.id.game_spoken)
     public void onClick2() {
-        Router.build("game").go(this);
+        Router.build("gameList").go(this);
     }
 
     @Override

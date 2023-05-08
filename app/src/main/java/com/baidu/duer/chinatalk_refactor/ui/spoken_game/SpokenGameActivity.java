@@ -41,7 +41,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-@Route("game")
+@Route("spokenGame")
 public class SpokenGameActivity extends BaseActivity implements RecognizeListener, SynthesizeListener {
 
     @BindView(R.id.pager)
