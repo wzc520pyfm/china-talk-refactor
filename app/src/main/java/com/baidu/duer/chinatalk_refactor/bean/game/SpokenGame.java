@@ -1,9 +1,9 @@
 package com.baidu.duer.chinatalk_refactor.bean.game;
 
-public class Game {
+public class SpokenGame {
     private int imgResource;
 
-    public Game(int imgResource) {
+    public SpokenGame(int imgResource) {
         this.imgResource = imgResource;
     }
 

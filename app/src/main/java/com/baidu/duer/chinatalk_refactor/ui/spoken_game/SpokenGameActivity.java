@@ -7,7 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.animation.CardTransformer;
 import com.baidu.duer.chinatalk_refactor.base.BaseActivity;
-import com.baidu.duer.chinatalk_refactor.bean.game.Game;
+import com.baidu.duer.chinatalk_refactor.bean.game.SpokenGame;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeListener;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
 import com.baidu.duer.chinatalk_refactor.iflytek.SynthesizeListener;
@@ -56,7 +56,7 @@ public class SpokenGameActivity extends BaseActivity implements RecognizeListene
 
     public Context mContext;
 
-    private ArrayList<Game> gamesList = new ArrayList<>();
+    private ArrayList<SpokenGame> gamesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class SpokenGameActivity extends BaseActivity implements RecognizeListene
     private void initData(int count) {
 
         for (int i = 0; i < count; i++) {
-            gamesList.add(new Game(R.drawable.game_example));
+            gamesList.add(new SpokenGame(R.drawable.game_example));
         }
 
     }

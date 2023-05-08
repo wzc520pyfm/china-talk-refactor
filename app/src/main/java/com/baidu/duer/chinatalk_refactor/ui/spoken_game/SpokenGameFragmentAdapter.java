@@ -6,19 +6,19 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
-import com.baidu.duer.chinatalk_refactor.bean.game.Game;
+import com.baidu.duer.chinatalk_refactor.bean.game.SpokenGame;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
 
 import java.util.ArrayList;
 
 public class SpokenGameFragmentAdapter extends QMUIPagerAdapter {
 
-    private ArrayList<Game> gamesList;
+    private ArrayList<SpokenGame> gamesList;
     private Context context;
     // 记录fragment的数组
     private ArrayList<SpokenGameFragment> fragments = new ArrayList<>();
 
-    public SpokenGameFragmentAdapter(Context context, ArrayList<Game> gamesList) {
+    public SpokenGameFragmentAdapter(Context context, ArrayList<SpokenGame> gamesList) {
         super();
         this.context = context;
         this.gamesList = gamesList;
