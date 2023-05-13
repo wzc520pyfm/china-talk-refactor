@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
+import com.bumptech.glide.Glide;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView2;
 
@@ -82,6 +83,9 @@ public class SpokenGameFragment extends FrameLayout {
     public void setImageResource(int imageResource) {
         QMUIRadiusImageView2 mRadiusImageView = root.findViewById(R.id.radiusImageView); // 获取对象
         mRadiusImageView.setImageResource(imageResource); // 设置图片源
+        // 使用glide设置图片源
+        // String url = "https://xxxx.png";
+        // Glide.with(this).load(url).into(mRadiusImageView);
 //        mRadiusImageView.setBorderColor(
 //                ContextCompat.getColor(getContext(), R.color.radiusImageView_border_color)); // 描边粗细
 //        mRadiusImageView.setBorderWidth(QMUIDisplayHelper.dp2px(getContext(), 2)); // 描边粗细
