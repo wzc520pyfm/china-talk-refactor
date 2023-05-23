@@ -44,6 +44,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         // 这里实现SDK初始化
         //Bmob后端云服务初始化
         Bmob.initialize(mContext.get(), mContext.get().getString(R.string.bmobKey));
+        Bmob.resetDomain("https://bmob-message.wzc520pyf.cn/8/");
         // 初始化讯飞SDK: 将“12345678”替换成您申请的APPID，申请地址：http://www.xfyun.cn
         // 请勿在“=”与appid之间添加任何空字符或者转义符
         SpeechUtility.createUtility(mContext.get(), SpeechConstant.APPID + "=" + mContext.get().getString(R.string.APPID));

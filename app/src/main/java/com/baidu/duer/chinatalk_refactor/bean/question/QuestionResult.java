@@ -1,4 +1,4 @@
-package com.baidu.duer.chinatalk_refactor.ui.real;
+package com.baidu.duer.chinatalk_refactor.bean.question;
 
 import androidx.annotation.Nullable;
 
@@ -11,21 +11,21 @@ public class QuestionResult {
     @Nullable
     private Integer error;
 
-    QuestionResult(@Nullable Integer error) {
+    public QuestionResult(@Nullable Integer error) {
         this.error = error;
     }
 
-    QuestionResult(@Nullable GettedInQuestionView success) {
+    public QuestionResult(@Nullable GettedInQuestionView success) {
         this.success = success;
     }
 
     @Nullable
-    GettedInQuestionView getSuccess() {
+    public GettedInQuestionView getSuccess() {
         return success;
     }
 
     @Nullable
-    Integer getError() {
+    public Integer getError() {
         return error;
     }
 }

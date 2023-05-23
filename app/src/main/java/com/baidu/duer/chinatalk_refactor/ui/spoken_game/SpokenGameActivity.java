@@ -2,12 +2,16 @@ package com.baidu.duer.chinatalk_refactor.ui.spoken_game;
 
 
 import androidx.core.view.ViewCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.animation.CardTransformer;
 import com.baidu.duer.chinatalk_refactor.base.BaseActivity;
 import com.baidu.duer.chinatalk_refactor.bean.game.SpokenGame;
+import com.baidu.duer.chinatalk_refactor.bean.question.Question;
+import com.baidu.duer.chinatalk_refactor.bean.question.QuestionsResult;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeListener;
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
 import com.baidu.duer.chinatalk_refactor.iflytek.SynthesizeListener;
@@ -44,6 +48,7 @@ import butterknife.OnClick;
 @Route("spokenGame")
 public class SpokenGameActivity extends BaseActivity implements RecognizeListener, SynthesizeListener {
 
+    private SpokenGameViewModel spokenGameViewModel;
     @BindView(R.id.pager)
     QMUIViewPager mViewPager;
     @BindView(R.id.topbar)
@@ -56,7 +61,6 @@ public class SpokenGameActivity extends BaseActivity implements RecognizeListene
 
     public Context mContext;
 
-    private ArrayList<SpokenGame> gamesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +68,15 @@ public class SpokenGameActivity extends BaseActivity implements RecognizeListene
         setContentView(R.layout.activity_spoken_game);
         ButterKnife.bind(this);
         mContext = this;
+        spokenGameViewModel =
+                ViewModelProviders.of(this).get(SpokenGameViewModel.class);
+        spokenGameViewModel.getQuestionsResult().observe(this, new Observer<QuestionsResult>() {
+            @Override
+            public void onChanged(QuestionsResult questionsResult) {
+                initPagers(questionsResult.getSuccess().getQuestions());
+            }
+        });
         initTopBar();
-        initData(5);
-        initPagers();
 
         RecognizeSpeechManager.instance().init(mContext);
         RecognizeSpeechManager.instance().setRecognizeListener(this);
@@ -92,14 +102,6 @@ public class SpokenGameActivity extends BaseActivity implements RecognizeListene
                 });
     }
 
-    private void initData(int count) {
-
-        for (int i = 0; i < count; i++) {
-            gamesList.add(new SpokenGame(R.drawable.game_example));
-        }
-
-    }
-
     @OnClick(R.id.collection)
     public void onClick(View v) {
         if(v.isSelected()) {
@@ -111,22 +113,23 @@ public class SpokenGameActivity extends BaseActivity implements RecognizeListene
     @OnClick(R.id.determine)
     public void onClick2(View v) {
         View view = pagerAdapter.getItemAt(mCurrentPosition);
+        SpokenGameFragment spokenGameFragment = pagerAdapter.getItem(mCurrentPosition);
         EditText et = view.findViewById(R.id.gameAnswerET);
         TextView answerResult = view.findViewById(R.id.answer_result);
-        if(StringUtils.GetDeleteShort(et.getText().toString()).equals("饺子")) {
+        if(StringUtils.GetDeleteShort(et.getText().toString()).contains(spokenGameFragment.getAnswer())) {
             // 回答正确
-            answerResult.setText("答对了, 继续加油吧!");
+            answerResult.setText(String.format("答对了, 继续加油吧! \n%s", spokenGameFragment.getAnalysis()));
             answerResult.setTextColor(getColor(R.color.color_theme_blue));
         } else {
             // 回答错误
-            answerResult.setText("答错了, 再想一下吧。");
+            answerResult.setText(String.format("答错了, 再想一下吧。\n提示: \n%s", spokenGameFragment.getTip()));
             answerResult.setTextColor(getColor(R.color.qmui_config_color_red));
         }
         SynthesizeSpeechManager.instance().startSpeak(answerResult.getText().toString());
     }
 
-    private void initPagers() {
-        pagerAdapter = new SpokenGameFragmentAdapter(mContext, gamesList);
+    private void initPagers(ArrayList<Question> questions) {
+        pagerAdapter = new SpokenGameFragmentAdapter(mContext, mViewPager, questions);
         //setPageTransformer默认采用ViewCompat.LAYER_TYPE_HARDWARE， 但它在某些4.x的国产机下会crash
         boolean canUseHardware = Build.VERSION.SDK_INT >= 21;
         mViewPager.setPageTransformer(false, new CardTransformer(),

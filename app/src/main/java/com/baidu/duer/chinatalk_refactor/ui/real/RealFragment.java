@@ -13,13 +13,13 @@ import android.widget.Toast;
 import androidx.annotation.StringRes;
 
 import com.baidu.duer.chinatalk_refactor.R;
-import com.baidu.duer.chinatalk_refactor.api.ExamPaperService;
 import com.baidu.duer.chinatalk_refactor.api.QuestionService;
 import com.baidu.duer.chinatalk_refactor.bean.Result;
 import com.baidu.duer.chinatalk_refactor.bean.ServiceResponse;
-import com.baidu.duer.chinatalk_refactor.bean.exam.GettedExam;
+import com.baidu.duer.chinatalk_refactor.bean.question.GettedInQuestionView;
 import com.baidu.duer.chinatalk_refactor.bean.question.GettedQuestion;
 import com.baidu.duer.chinatalk_refactor.bean.question.Question;
+import com.baidu.duer.chinatalk_refactor.bean.question.QuestionResult;
 import com.baidu.duer.chinatalk_refactor.http.RetrofitClient;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 

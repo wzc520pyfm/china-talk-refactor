@@ -6,22 +6,30 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import com.baidu.duer.chinatalk_refactor.R;
 import com.baidu.duer.chinatalk_refactor.bean.game.SpokenGame;
+import com.baidu.duer.chinatalk_refactor.bean.question.Question;
 import com.qmuiteam.qmui.widget.QMUIPagerAdapter;
 
 import java.util.ArrayList;
 
+import butterknife.BindString;
+import butterknife.ButterKnife;
+
 public class SpokenGameFragmentAdapter extends QMUIPagerAdapter {
 
-    private ArrayList<SpokenGame> gamesList;
+    private ArrayList<Question> questions;
     private Context context;
+    @BindString(R.string.assetsUrl)
+    public String assetsUrl;
     // 记录fragment的数组
     private ArrayList<SpokenGameFragment> fragments = new ArrayList<>();
 
-    public SpokenGameFragmentAdapter(Context context, ArrayList<SpokenGame> gamesList) {
+    public SpokenGameFragmentAdapter(Context context, View convertView, ArrayList<Question> questions) {
         super();
+        ButterKnife.bind(this, convertView);
         this.context = context;
-        this.gamesList = gamesList;
+        this.questions = questions;
 
     }
 
@@ -34,7 +42,11 @@ public class SpokenGameFragmentAdapter extends QMUIPagerAdapter {
     @Override
     protected void populate(@NonNull ViewGroup container, @NonNull Object item, int position) {
         SpokenGameFragment gameView = (SpokenGameFragment) item;
-        gameView.setImageResource(gamesList.get(position).getImgResource());
+        gameView.setImageResource(assetsUrl + "/" +questions.get(position).getContentResources().get(0).getFileResource().getPath());
+        gameView.setGameContent(questions.get(position).getNarrateQuestion().getContent());
+        gameView.setAnswer(questions.get(position).getNarrateQuestion().getAnswer());
+        gameView.setTip(questions.get(position).getNarrateQuestion().getTip());
+        gameView.setAnalysis(questions.get(position).getNarrateQuestion().getAnalysis());
         container.addView(gameView);
         fragments.add(gameView);
     }
@@ -46,7 +58,7 @@ public class SpokenGameFragmentAdapter extends QMUIPagerAdapter {
 
     @Override
     public int getCount() {
-        return gamesList.size();
+        return questions.size();
     }
 
     @Override
@@ -62,4 +74,6 @@ public class SpokenGameFragmentAdapter extends QMUIPagerAdapter {
     public View getItemAt(int position) {
         return fragments.get(position);
     }
+
+    public SpokenGameFragment getItem(int position) { return fragments.get(position); }
 }

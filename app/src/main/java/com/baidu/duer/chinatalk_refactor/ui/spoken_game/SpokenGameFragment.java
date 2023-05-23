@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.duer.chinatalk_refactor.iflytek.RecognizeSpeechManager;
@@ -35,6 +36,12 @@ public class SpokenGameFragment extends FrameLayout {
     EditText gameAnswerET;
     @BindView(R.id.speak_image_btn)
     ImageButton speakImageBtn;
+    @BindView(R.id.gameContent)
+    TextView gameContentTv;
+
+    private String answer;
+    private String tip;
+    private String analysis;
 
     Context mContext;
 
@@ -80,12 +87,10 @@ public class SpokenGameFragment extends FrameLayout {
         return false;
     }
 
-    public void setImageResource(int imageResource) {
+    public void setImageResource(String imageUrl) {
         QMUIRadiusImageView2 mRadiusImageView = root.findViewById(R.id.radiusImageView); // 获取对象
-        mRadiusImageView.setImageResource(imageResource); // 设置图片源
-        // 使用glide设置图片源
-        // String url = "https://xxxx.png";
-        // Glide.with(this).load(url).into(mRadiusImageView);
+//        mRadiusImageView.setImageResource( Int imageResource); // 设置本地图片源
+         Glide.with(this).load(imageUrl).into(mRadiusImageView);
 //        mRadiusImageView.setBorderColor(
 //                ContextCompat.getColor(getContext(), R.color.radiusImageView_border_color)); // 描边粗细
 //        mRadiusImageView.setBorderWidth(QMUIDisplayHelper.dp2px(getContext(), 2)); // 描边粗细
@@ -99,7 +104,35 @@ public class SpokenGameFragment extends FrameLayout {
         mRadiusImageView.setCircle(false);
     }
 
-//    public void setText(CharSequence text) {
+    public void setGameContent(String gameContent) {
+        this.gameContentTv.setText(gameContent);
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
+
+    public String getAnalysis() {
+        return analysis;
+    }
+
+    public void setAnalysis(String analysis) {
+        this.analysis = analysis;
+    }
+
+    //    public void setText(CharSequence text) {
 //        gameAnswerET.setText(text);
 //    }
 }

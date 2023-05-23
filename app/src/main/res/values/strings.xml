@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ChinaTalk</string>
     <string name="APPID">d213d266</string>
     <string name="bmobKey">ed682c4fb960a4594fa6db2a322bcfe8</string>
+    <string name="assetsUrl">https://wzctest.wzc520pyf.cn/chinaTalkNest</string>
     <string name="baseUrl">https://wzctest.wzc520pyf.cn/chinaTalkNest/api/v1/</string>
     <string name="fapp">chinaTalkAndroid</string>
     <string name="login">Login</string>

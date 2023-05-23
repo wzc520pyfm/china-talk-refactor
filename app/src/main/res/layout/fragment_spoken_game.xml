@@ -51,7 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="48dp"
-        android:text="请问: 图中的食物叫什么?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/gameTitle"
         app:layout_constraintTop_toBottomOf="@+id/gameTitle" />

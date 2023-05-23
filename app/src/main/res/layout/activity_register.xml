@@ -100,6 +100,7 @@
         android:hint="@string/phone"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
+        android:text="18735020227"
         android:textColorHint="@color/light_gray"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"

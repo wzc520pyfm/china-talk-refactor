@@ -1,4 +1,4 @@
-package com.baidu.duer.chinatalk_refactor.ui.real;
+package com.baidu.duer.chinatalk_refactor.bean.question;
 
 import com.baidu.duer.chinatalk_refactor.bean.question.Question;
 
